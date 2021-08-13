@@ -1,2 +1,3 @@
 TextureResource: BackgroundTexture,Path,Data/Textures/Background.tpl,,,,
-Sprite,Position,"0, 0",Size,"640, 480",Texture,BackgroundTexture
+Board: Board,Position,"0, 0",Size,"640, 480",Texture,BackgroundTexture
+Rook,Board,Board,Color,Black,Location,"0, 0"
