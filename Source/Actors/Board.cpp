@@ -12,7 +12,7 @@ void Board::Load(DataStream& stream) {
 
 void Board::AddPiece(Piece* piece) {
     MakeChild(piece);
-    piece->pos = (piece->loc * 8);
+    piece->pos = (piece->loc * 60);
     piece->pos.x += 80;
     piece->textureRef = blackPawnTextureRef;
 }
