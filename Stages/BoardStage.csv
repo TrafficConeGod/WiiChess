@@ -1,0 +1,2 @@
+TextureResource: BoardTexture,Path,Data/Textures/ChessBoard.tpl,,,,
+Sprite,Position,"0, 0",Size,"480, 480",Texture,BoardTexture

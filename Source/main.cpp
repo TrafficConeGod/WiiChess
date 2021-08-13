@@ -179,7 +179,7 @@ int main(int argCount, char** args) {
 	Print("\n\n");
 
 	Stage stage;
-	if (!stage.LoadFromFile("Data/Stages/Stage1.stg")) {
+	if (!stage.LoadFromFile("Data/Stages/BoardStage.stg")) {
 		Error("Failed to load stage from file");
 	}
 	stage.Initialize();

@@ -1,3 +1,4 @@
 Sprite,,Vector2Int Position,Vector2Int Size,Actor Texture
 Resource,,String Path,,
 TextureResource,Resource,,,
+Piece,,UInt Type,,
