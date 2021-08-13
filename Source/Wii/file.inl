@@ -3,8 +3,9 @@
 
 template<typename T>
 bool UseFileWith(const char* path, const T& val, bool (*func)(void*, size_t, T)) {
-    if (access(path, F_OK) != 0) {
-		Print("File not found");
+	int code = access(path, F_OK);
+    if (code != 0) {
+		PrintFmt("File %s not found, code: %d\n", path, code);
 		return false;
 	}
 
