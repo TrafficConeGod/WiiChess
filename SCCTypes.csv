@@ -4,3 +4,4 @@ TextureResource,Resource,,,
 Board,Sprite,Actor BlackPawnTexture,,
 Piece,,Actor Board,"Enum Black, White Color",Vector2UInt Location
 Pawn,Piece,,,
+Cursor,Sprite,,,

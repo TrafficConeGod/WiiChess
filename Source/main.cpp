@@ -43,7 +43,14 @@ void ButtonsUpAction(Inputtable* inputtable, uint buttons) {
 	inputtable->ButtonsUp(buttons);
 }
 
+void HandlePointerAction(Inputtable* inputtable, Vector2i pointerPos) {
+	inputtable->HandlePointer(pointerPos);
+}
+
 int main(int argCount, char** args) {
+	WPAD_Init();
+	WPAD_SetDataFormat(WPAD_CHAN_ALL, WPAD_FMT_BTNS_ACC_IR);
+	WPAD_SetVRes(WPAD_CHAN_ALL, 640, 480);
 
 
 	#ifdef DEBUG_MODE
@@ -51,7 +58,6 @@ int main(int argCount, char** args) {
 	VIDEO_Init();
 
 	// This function initialises the attached controllers
-	WPAD_Init();
 
 	// Obtain the preferred video mode from the system
 	// This will correspond to the settings in the Wii menu
@@ -170,8 +176,6 @@ int main(int argCount, char** args) {
 	guOrtho(perspective, 0, 479, 0, 639, 0, 300);
 	GX_LoadProjectionMtx(perspective, GX_ORTHOGRAPHIC);
 
-	WPAD_Init();
-
 	srand(time(NULL));
 
 	#endif
@@ -206,6 +210,12 @@ int main(int argCount, char** args) {
 		uint buttonsUp = WPAD_ButtonsUp(0);
 		if (buttonsUp) {
 			stage.UseActorsOfWith(buttonsUp, ButtonsUpAction);
+		}
+
+		ir_t ir;
+		WPAD_IR(0, &ir);
+		if (ir.valid) {
+			stage.UseActorsOfWith(Vector2i(ir.x, ir.y), HandlePointerAction);
 		}
 
 		#ifdef GFX_MODE

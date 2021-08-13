@@ -1,5 +1,7 @@
 #pragma once
 #include "Actor.h"
+#include "Vector2.h"
+#include <wiiuse/wiiuse.h>
 
 class Inputtable : public virtual Actor {
     public:
@@ -11,4 +13,5 @@ class Inputtable : public virtual Actor {
         virtual void ButtonsDown(uint buttons);
         virtual void ButtonsHeld(uint buttons);
         virtual void ButtonsUp(uint buttons);
+        virtual void HandlePointer(const Vector2i& pointerPos);
 };
