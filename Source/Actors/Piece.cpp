@@ -12,6 +12,7 @@ void Piece::Load(DataStream& stream) {
 
 void Piece::Create() {
     Sprite::Create();
+    size = Vector2i(60, 60);
     Board* board = boardRef;
     if (board == nullptr) {
         return;
