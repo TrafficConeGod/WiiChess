@@ -5,7 +5,6 @@ bool Piece::IsOfType(short id) {
 }
 
 void Piece::Load(DataStream& stream) {
-    Sprite::Load(stream);
     boardRef.Load(stage, stream);
     stream >> color;
     stream >> loc;
