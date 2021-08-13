@@ -4,6 +4,17 @@ template<typename A>
 ActorReference<A>::ActorReference() {}
 
 template<typename A>
+void ActorReference<A>::operator=(const ActorReference<A>& ref) {
+    stage = ref.stage;
+    index = ref.index;
+}
+
+template<typename A>
+ActorReference<A>::ActorReference(const ActorReference<A>& ref) {
+    *this = ref;
+}
+
+template<typename A>
 void ActorReference<A>::operator=(Actor* actor) {
     stage = actor->stage;
     index = actor->index;

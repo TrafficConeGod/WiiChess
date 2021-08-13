@@ -9,6 +9,9 @@ class ActorReference {
     public:
         ActorReference();
 
+        void operator=(const ActorReference<A>& ref);
+        ActorReference(const ActorReference<A>& ref);
+
         void operator=(Actor* actor);
         ActorReference(Actor* actor);
         void Load(Stage* stage, DataStream& stream);

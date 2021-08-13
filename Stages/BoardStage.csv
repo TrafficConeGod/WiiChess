@@ -1,3 +1,4 @@
-TextureResource: BackgroundTexture,Path,Data/Textures/Background.tpl,,,,
-Board: Board,Position,"0, 0",Size,"640, 480",Texture,BackgroundTexture
-Rook,Board,Board,Color,Black,Location,"0, 0"
+TextureResource: BackgroundTexture,Path,Data/Textures/Background.tpl,,,,,,
+TextureResource: BPT,Path,Data/Textures/BlackPawn.tpl,,,,,,
+Board: MainBoard,Position,"0, 0",Size,"640, 480",Texture,BackgroundTexture,BlackPawnTexture,BPT
+Pawn,Board,MainBoard,Color,Black,Location,"0, 0",,

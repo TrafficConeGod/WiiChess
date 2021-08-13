@@ -1,6 +1,8 @@
 #include "Stage.h"
 #include "Actors/TextureResource.h"
 #include "Actors/Sprite.h"
+#include "Actors/Board.h"
+#include "Actors/Pawn.h"
 #include "Wii/io.h"
 #include "Wii/file.h"
 
@@ -24,6 +26,8 @@ Actor* Stage::AllocateActor(short id) {
     switch (id) {
         ActorCase(Sprite);
         ActorCase(TextureResource);
+        ActorCase(Board);
+        ActorCase(Pawn);
         default:
             Print("Invalid Actor ID");
             return nullptr;
