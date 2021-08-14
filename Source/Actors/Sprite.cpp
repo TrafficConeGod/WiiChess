@@ -9,6 +9,7 @@ void Sprite::Load(DataStream& stream) {
 	Actor::Load(stream);
 	stream >> pos;
 	stream >> size;
+	stream >> zIndex;
 	textureRef.Load(stage, stream);
 }
 

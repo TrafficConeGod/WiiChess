@@ -42,6 +42,9 @@ ActorReference<A>::operator A*() {
         return nullptr;
     }
     Actor* actor = stage->GetActorAtIndex(index);
+    if (actor == nullptr) {
+        return nullptr;
+    }
     if (actor->IsOfType(A::ID)) {
         return dynamic_cast<A*>(actor);
     } else {

@@ -10,6 +10,7 @@ class Sprite : public virtual Actor {
 
         Vector2i pos;
         Vector2i size;
+        uint zIndex;
         ActorReference<TextureResource> textureRef;
 
         using Actor::Actor;
