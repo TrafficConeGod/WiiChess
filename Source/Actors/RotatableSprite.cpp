@@ -36,9 +36,10 @@ void RotatableSprite::Draw() {
         Vector2f(-rot.y, rot.x)
     };
 
+    GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
     for (uchar i = 0; i < 4; i++) {
         // rotation
-        Vector2f& vert = quad[i];
+        Vector2f vert = quad[i];
 
         // scale
         vert.x *= size.x - 1;
@@ -47,12 +48,9 @@ void RotatableSprite::Draw() {
         // translate
         vert.x += pos.x;
         vert.y += pos.y;
-    }
 
-	GX_Begin(GX_QUADS, GX_VTXFMT0, 4);			// Draw A Quad
-	for (uchar i = 0; i < 4; i++) {
-        GX_Position2f32(quad[i].x, quad[i].y);					// Top Left
-        GX_TexCoord2f32(texCoords[i].x, texCoords[i].y);
+        GX_Position2f32(vert.x, vert.y);	
+        GX_Position2f32(texCoords[i].x, texCoords[i].y);	
     }
 	GX_End();
 	#endif
