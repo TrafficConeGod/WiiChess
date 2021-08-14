@@ -7,6 +7,9 @@ class Array {
         T* buf = nullptr;
         size_t size = 0;
 
+        Array();
+        void operator=(const Array<T>& arr);
+        Array(const Array<T>& arr);
         ~Array();
 
         T& operator[](size_t index);

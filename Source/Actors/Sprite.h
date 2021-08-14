@@ -10,7 +10,7 @@ class Sprite : public virtual Actor {
 
         Vector2i pos;
         Vector2i size;
-        uint zIndex;
+        uint layer;
         ActorReference<TextureResource> textureRef;
 
         using Actor::Actor;
@@ -19,4 +19,6 @@ class Sprite : public virtual Actor {
         virtual void Load(DataStream& stream);
 
         virtual void Draw();
+
+        static void Draw(Stage* stage);
 };

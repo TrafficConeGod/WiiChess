@@ -9,7 +9,7 @@ void Sprite::Load(DataStream& stream) {
 	Actor::Load(stream);
 	stream >> pos;
 	stream >> size;
-	stream >> zIndex;
+	stream >> layer;
 	textureRef.Load(stage, stream);
 }
 
@@ -32,4 +32,29 @@ void Sprite::Draw() {
 	GX_TexCoord2f32(0, 1);
 	GX_End();
 	#endif
+}
+
+static void DrawAction(Sprite* sprite, Array<Array<Sprite*>*>* drawPriority) {
+	if (sprite->layer == 0) {
+		sprite->Draw();
+	} else {
+		if (drawPriority->size < sprite->layer) {
+			for (size_t i = drawPriority->size; i < sprite->layer; i++) {
+				(*drawPriority) << new Array<Sprite*>;
+			}
+		}
+		(*(*drawPriority)[sprite->layer - 1]) << sprite;
+	}
+}
+
+void Sprite::Draw(Stage* stage) {
+	Array<Array<Sprite*>*> drawPriority;
+	stage->UseActorsOfWith(&drawPriority, DrawAction);
+	for (size_t i = 0; i < drawPriority.size; i++) {
+		Array<Sprite*>* layerDrawPriority = drawPriority[i];
+		for (size_t j = 0; j < layerDrawPriority->size; j++) {
+			(*layerDrawPriority)[i]->Draw();
+		}
+		delete layerDrawPriority;
+	}
 }

@@ -5,7 +5,7 @@ class Piece;
 
 class Board : public virtual Sprite {
     private:
-        uint pieceZIndex;
+        uint pieceLayer;
         ActorReference<TextureResource> blackPawnTextureRef;
     public:
         static const short ID = 4;

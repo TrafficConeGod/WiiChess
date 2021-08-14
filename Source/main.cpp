@@ -264,7 +264,7 @@ int main(int argCount, char** args) {
 		#endif
 
 		stage.UseActors(UpdateAction);
-		stage.UseActorsOf(DrawAction);
+		Sprite::Draw(&stage);
 
 		#ifdef GFX_MODE
 

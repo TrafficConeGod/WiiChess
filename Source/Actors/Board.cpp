@@ -7,7 +7,7 @@ bool Board::IsOfType(short id) {
 
 void Board::Load(DataStream& stream) {
     Sprite::Load(stream);
-    stream >> pieceZIndex;
+    stream >> pieceLayer;
     blackPawnTextureRef.Load(stage, stream);
 }
 
@@ -15,6 +15,6 @@ void Board::AddPiece(Piece* piece) {
     MakeChild(piece);
     piece->pos = (piece->loc * 60);
     piece->pos.x += 80;
-    piece->zIndex = pieceZIndex;
+    piece->layer = pieceLayer;
     piece->textureRef = blackPawnTextureRef;
 }
