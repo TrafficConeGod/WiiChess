@@ -9,5 +9,5 @@ bool Cursor::IsOfType(short id) {
 void Cursor::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
     pos = Vector2i(pointer.x, pointer.y);
-    radians = pointer.angle;
+    radians = DegToRad(pointer.angle);
 }
