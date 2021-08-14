@@ -9,5 +9,5 @@ class Cursor : public virtual RotatableSprite, public virtual Inputtable {
         Cursor(Stage* stage);
         virtual bool IsOfType(short id);
 
-        virtual void HandlePointer(const Vector2i& pointerPos);
+        virtual void HandlePointer(const ir_t& pointer);
 };

@@ -43,8 +43,8 @@ void ButtonsUpAction(Inputtable* inputtable, uint buttons) {
 	inputtable->ButtonsUp(buttons);
 }
 
-void HandlePointerAction(Inputtable* inputtable, Vector2i pointerPos) {
-	inputtable->HandlePointer(pointerPos);
+void HandlePointerAction(Inputtable* inputtable, ir_t* pointer) {
+	inputtable->HandlePointer(*pointer);
 }
 
 #ifdef DEBUG_MODE
@@ -244,7 +244,7 @@ int main(int argCount, char** args) {
 		ir_t ir;
 		WPAD_IR(0, &ir);
 		if (ir.valid) {
-			stage.UseActorsOfWith(Vector2i(ir.x, ir.y), HandlePointerAction);
+			stage.UseActorsOfWith(&ir, HandlePointerAction);
 		}
 
 		#ifdef GFX_MODE

@@ -7,4 +7,4 @@ bool Inputtable::IsOfType(short id) {
 void Inputtable::ButtonsDown(uint) {}
 void Inputtable::ButtonsHeld(uint) {}
 void Inputtable::ButtonsUp(uint) {}
-void Inputtable::HandlePointer(const Vector2i&) {}
+void Inputtable::HandlePointer(const ir_t&) {}

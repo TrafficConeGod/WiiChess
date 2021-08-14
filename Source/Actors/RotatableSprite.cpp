@@ -38,7 +38,6 @@ void RotatableSprite::Draw() {
 
     GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
     for (uchar i = 0; i < 4; i++) {
-        // rotation
         Vector2f vert = quad[i];
 
         // scale

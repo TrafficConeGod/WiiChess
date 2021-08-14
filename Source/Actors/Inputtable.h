@@ -13,5 +13,5 @@ class Inputtable : public virtual Actor {
         virtual void ButtonsDown(uint buttons);
         virtual void ButtonsHeld(uint buttons);
         virtual void ButtonsUp(uint buttons);
-        virtual void HandlePointer(const Vector2i& pointerPos);
+        virtual void HandlePointer(const ir_t& pointer);
 };
