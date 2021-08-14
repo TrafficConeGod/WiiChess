@@ -211,8 +211,6 @@ int main(int argCount, char** args) {
 
 	//
 
-	Print("\n\n");
-
 	Stage stage;
 	if (!stage.LoadFromFile("Data/Stages/BoardStage.stg")) {
 		Error("Failed to load stage from file");

@@ -1,10 +1,10 @@
 #pragma once
-#include "Sprite.h"
+#include "RotatableSprite.h"
 #include "Inputtable.h"
 
-class Cursor : public virtual Sprite, public virtual Inputtable {
+class Cursor : public virtual RotatableSprite, public virtual Inputtable {
     public:
-        static const short ID = 7;
+        static const short ID = 8;
 
         Cursor(Stage* stage);
         virtual bool IsOfType(short id);
