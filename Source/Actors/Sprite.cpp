@@ -19,8 +19,8 @@ void Sprite::Load(DataStream& stream) {
 
 void Sprite::Create() {
 	Actor::Create();
-	spriteDrawOrder << this;
 
+	spriteDrawOrder << this;
 	// Why wont this code wont work? I dont fucking know, all i know is im done with trying to get it to work
 	
 	// bool inserted = false;
