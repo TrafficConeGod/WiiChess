@@ -1,4 +1,14 @@
 #include "Actor.h"
+#include "Stage.h"
+
+template<typename A>
+A* Actor::CreateChildFrom(A* actor) {
+    Actor* clone = stage->AllocateActor(A::ID);
+    *clone = *actor;
+    clone->Initialize();
+    children << clone;
+    return dynamic_cast<A*>(clone);
+}
 
 template<typename A>
 void Actor::UseOf(void (*func)(A*)) {

@@ -10,6 +10,7 @@ class Stage;
 
 class Actor {
     protected:
+        bool active = false;
         bool initialized = false;
         bool alive = false;
 
@@ -18,10 +19,12 @@ class Actor {
         Actor* CreateChild(short id);
         Actor* CreateChildFrom(DataStream& stream);
         void MakeChild(Actor* actor);
+        template<typename A>
+        A* CreateChildFrom(A* actor);
 
         virtual void Create();
     public:
-        static const uint ID = 0;
+        static const uint ID = 1;
         
         size_t index = 0;
         Stage* stage = nullptr;

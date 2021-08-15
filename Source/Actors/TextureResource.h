@@ -5,7 +5,7 @@ class TextureResource : public virtual Resource {
     private:
         GXTexObj texObj;
     public:
-        static const short ID = 3;
+        static const short ID = 4;
 
         ActorConstructor(TextureResource)
         virtual bool IsOfType(short id);

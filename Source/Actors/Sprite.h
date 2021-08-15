@@ -6,7 +6,7 @@
 
 class Sprite : public virtual Actor {
     public:
-        static const short ID = 1;
+        static const short ID = 2;
 
         Vector2u pos;
         Vector2u size;

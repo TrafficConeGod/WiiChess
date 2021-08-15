@@ -8,7 +8,7 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         bool hovered;
         bool held;
     public:
-        static const short ID = 5;
+        static const short ID = 6;
 
         enum Color {
             BLACK,
@@ -16,16 +16,9 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         };
 
         ActorReference<Board> boardRef;
-        Color color;
-        Vector2u loc;
 
         ActorConstructor(Piece)
         virtual bool IsOfType(short id);
-
-        virtual void Load(DataStream& stream);
-
-        virtual void Create();
-        virtual void Update();
 
         virtual void HandlePointer(const ir_t& pointer);
         virtual void ButtonsDown(uint buttons);

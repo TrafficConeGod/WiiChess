@@ -16,7 +16,7 @@ Actor::~Actor() {
 }
 
 void Actor::Initialize() {
-    if (!initialized) {
+    if (active && !initialized) {
         initialized = true;
         Create();
     }
@@ -50,7 +50,9 @@ bool Actor::IsOfType(short id) {
     return id == ID;
 }
 
-void Actor::Load(DataStream& stream) {}
+void Actor::Load(DataStream& stream) {
+    stream >> active;
+}
 
 void Actor::Create() {
     alive = true;
