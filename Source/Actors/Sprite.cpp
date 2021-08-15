@@ -13,6 +13,8 @@ void Sprite::Load(DataStream& stream) {
 	Actor::Load(stream);
 	stream >> pos;
 	stream >> size;
+	stream >> origin;
+	stream >> visible;
 	stream >> layer;
 	textureRef.Load(stage, stream);
 }
@@ -77,6 +79,9 @@ void Sprite::Draw(Stage* stage /* Pretend like this does something with stage to
 
 void Sprite::Draw() {
 	#ifdef GFX_MODE
+	if (!visible) {
+		return;
+	}
 	TextureResource* texture = textureRef;
 	if (texture == nullptr) {
 		return;

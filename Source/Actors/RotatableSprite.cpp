@@ -21,6 +21,9 @@ static const Vector2u texCoords[] = {
 
 void RotatableSprite::Draw() {
 	#ifdef GFX_MODE
+	if (!visible) {
+		return;
+	}
 	TextureResource* texture = textureRef;
 	if (texture == nullptr) {
 		return;

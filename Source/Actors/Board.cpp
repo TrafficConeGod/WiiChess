@@ -15,6 +15,8 @@ void Board::AddPiece(Piece* piece) {
     MakeChild(piece);
     piece->pos = (piece->loc * 60);
     piece->pos.x += 80;
+    piece->origin = Vector2f(0, 0);
+    piece->visible = true;
     piece->layer = pieceLayer;
     piece->textureRef = blackPawnTextureRef;
 }

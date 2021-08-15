@@ -1,8 +1,8 @@
-Sprite,,Vector2UInt Position,Vector2UInt Size,UInt Layer,Actor Texture
-Resource,,String Path,,,
-TextureResource,Resource,,,,
-Board,Sprite,UInt PieceLayer,Actor BlackPawnTexture,,
-Piece,,Actor Board,"Enum Black, White Color",Vector2UInt Location,
-Pawn,Piece,,,,
-RotatableSprite,Sprite,UInt Degrees,,,
-Cursor,RotatableSprite,,,,
+Sprite,,Vector2UInt Position,Vector2UInt Size,Vector2Float Origin,Bool Visible,UInt Layer,Actor Texture
+Resource,,String Path,,,,,
+TextureResource,Resource,,,,,,
+Board,Sprite,UInt PieceLayer,Actor BlackPawnTexture,,,,
+Piece,,Actor Board,"Enum Black, White Color",Vector2UInt Location,,,
+Pawn,Piece,,,,,,
+RotatableSprite,Sprite,UInt Degrees,,,,,
+Cursor,RotatableSprite,,,,,,

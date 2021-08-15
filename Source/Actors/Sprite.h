@@ -10,6 +10,8 @@ class Sprite : public virtual Actor {
 
         Vector2u pos;
         Vector2u size;
+        Vector2f origin;
+        bool visible;
         uint layer;
         ActorReference<TextureResource> textureRef;
 
