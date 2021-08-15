@@ -18,7 +18,11 @@ class Sprite : public virtual Actor {
         
         virtual void Load(DataStream& stream);
 
+        virtual void Create();
+        virtual void Destroy();
+
         virtual void Draw();
 
+        void UpdateDrawOrder();
         static void Draw(Stage* stage);
 };

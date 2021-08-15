@@ -1,5 +1,9 @@
 #include "Sprite.h"
 #include "Wii/io.h"
+#include <unistd.h>
+
+static size_t currentSpriteDrawOrderIndex;
+static Array<Sprite*> spriteDrawOrder;
 
 bool Sprite::IsOfType(short id) {
 	return id == ID || Actor::IsOfType(id);
@@ -11,6 +15,56 @@ void Sprite::Load(DataStream& stream) {
 	stream >> size;
 	stream >> layer;
 	textureRef.Load(stage, stream);
+}
+
+void Sprite::Create() {
+	Actor::Create();
+
+	bool inserted = false;
+	for (size_t i = 0; i < spriteDrawOrder.size; i++) {
+		if (spriteDrawOrder[i]->layer > layer) {
+			spriteDrawOrder << spriteDrawOrder.SafeIndex(spriteDrawOrder.size - 1);
+			for (size_t j = i; j < (spriteDrawOrder.size - 1); j++) {
+				spriteDrawOrder.SafeIndex(j + 1) = spriteDrawOrder[j];
+			}
+			spriteDrawOrder[i] = this;
+			inserted = true;
+			break;
+		}
+	}
+	if (!inserted) {
+		spriteDrawOrder << this;
+	}
+}
+
+void Sprite::UpdateDrawOrder() {
+	if (currentSpriteDrawOrderIndex != 0) {
+		Sprite* previousSprite = spriteDrawOrder.SafeIndex(currentSpriteDrawOrderIndex - 1);
+		if (previousSprite->layer > layer) {
+			// swap sprites
+			spriteDrawOrder.SafeIndex(currentSpriteDrawOrderIndex - 1) = this;
+			spriteDrawOrder[currentSpriteDrawOrderIndex] = previousSprite;
+		}
+	}
+}
+
+void Sprite::Destroy() {
+	Actor::Destroy();
+	for (size_t i = currentSpriteDrawOrderIndex; i < (spriteDrawOrder.size - 1); i++) {
+		spriteDrawOrder[i] = spriteDrawOrder.SafeIndex(i + 1);
+	}
+	// into the trash it goes
+	Sprite* trashSprite;
+	spriteDrawOrder >> trashSprite;
+}
+
+void Sprite::Draw(Stage* stage /* Pretend like this does something with stage to allow this */) {
+	for (currentSpriteDrawOrderIndex = 0; currentSpriteDrawOrderIndex < spriteDrawOrder.size; currentSpriteDrawOrderIndex++) {
+		spriteDrawOrder[currentSpriteDrawOrderIndex]->UpdateDrawOrder();
+	}
+	for (size_t i = 0; i < spriteDrawOrder.size; i++) {
+		spriteDrawOrder[i]->Draw();
+	}
 }
 
 void Sprite::Draw() {
@@ -32,29 +86,4 @@ void Sprite::Draw() {
 	GX_TexCoord2f32(0, 1);
 	GX_End();
 	#endif
-}
-
-static void DrawAction(Sprite* sprite, Array<Array<Sprite*>*>* drawPriority) {
-	if (sprite->layer == 0) {
-		sprite->Draw();
-	} else {
-		if (drawPriority->size < sprite->layer) {
-			for (size_t i = drawPriority->size; i < sprite->layer; i++) {
-				(*drawPriority) << new Array<Sprite*>;
-			}
-		}
-		(*(*drawPriority)[sprite->layer - 1]) << sprite;
-	}
-}
-
-void Sprite::Draw(Stage* stage) {
-	Array<Array<Sprite*>*> drawPriority;
-	stage->UseActorsOfWith(&drawPriority, DrawAction);
-	for (size_t i = 0; i < drawPriority.size; i++) {
-		Array<Sprite*>* layerDrawPriority = drawPriority[i];
-		for (size_t j = 0; j < layerDrawPriority->size; j++) {
-			(*layerDrawPriority)[i]->Draw();
-		}
-		delete layerDrawPriority;
-	}
 }

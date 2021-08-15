@@ -43,6 +43,6 @@ template<typename T>
 Array<T>& Array<T>::operator>>(T& val) {
     size -= 1;
     val = buf[size];
-    realloc(buf, size * sizeof(T));
+    buf = (T*)realloc(buf, size * sizeof(T));
     return *this;
 }

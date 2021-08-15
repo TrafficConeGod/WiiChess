@@ -1,7 +1,7 @@
 TextureResource: BackgroundTexture,Path,Data/Textures/Background.tpl,,,,,,,,,,
 TextureResource: CursorTexture,Path,Data/Textures/Cursor.tpl,,,,,,,,,,
 TextureResource: BPT,Path,Data/Textures/BlackPawn.tpl,,,,,,,,,,
-Board: MainBoard,Position,"0, 0",Size,"640, 480",Layer,0,Texture,BackgroundTexture,Layer,1,BlackPawnTexture,BPT
+Board: MainBoard,Position,"0, 0",Size,"640, 480",Layer,0,Texture,BackgroundTexture,PieceLayer,1,BlackPawnTexture,BPT
 Pawn,Board,MainBoard,Color,Black,Location,"0, 1",,,,,,
 Pawn,Board,MainBoard,Color,Black,Location,"1, 1",,,,,,
 Pawn,Board,MainBoard,Color,Black,Location,"2, 1",,,,,,
