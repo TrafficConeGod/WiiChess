@@ -241,11 +241,9 @@ int main(int argCount, char** args) {
 			stage.UseActorsOfWith(buttonsUp, ButtonsUpAction);
 		}
 
-		ir_t ir;
-		WPAD_IR(0, &ir);
-		if (ir.valid) {
-			stage.UseActorsOfWith(&ir, HandlePointerAction);
-		}
+		ir_t pointer;
+		WPAD_IR(0, &pointer);
+		stage.UseActorsOfWith(&pointer, HandlePointerAction);
 
 		#ifdef GFX_MODE
 

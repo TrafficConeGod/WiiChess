@@ -6,6 +6,10 @@ bool Cursor::IsOfType(short id) {
 
 void Cursor::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
-    pos = Vector2u(pointer.x, pointer.y);
-    radians = DegToRad(pointer.angle);
+    if (pointer.valid) {
+        pos = Vector2u(pointer.x, pointer.y);
+        radians = DegToRad(pointer.angle);
+    } else {
+        
+    }
 }

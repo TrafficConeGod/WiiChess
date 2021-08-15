@@ -30,10 +30,15 @@ void Piece::Update() {
 
 void Piece::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
-    if (held) {
-        pos = Vector2u(pointer.x, pointer.y);
-    } else {
-        hovered = (pointer.x >= pos.x && pointer.y >= pos.y && pointer.x < (pos.x + size.x) && pointer.y < (pos.y + size.y));
+    if (pointer.valid) {
+        if (held) {
+            pos = Vector2u(pointer.x, pointer.y);
+        } else {
+            hovered = (pointer.x >= pos.x && pointer.y >= pos.y && pointer.x < (pos.x + size.x) && pointer.y < (pos.y + size.y));
+        }
+    } else if (held) {
+        pos = origPos;
+        held = false;
     }
 }
 
