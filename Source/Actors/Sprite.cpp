@@ -23,9 +23,14 @@ void Sprite::Create() {
 	bool inserted = false;
 	for (size_t i = 0; i < spriteDrawOrder.size; i++) {
 		if (spriteDrawOrder[i]->layer > layer) {
-			spriteDrawOrder << spriteDrawOrder.SafeIndex(spriteDrawOrder.size - 1);
-			for (size_t j = i; j < (spriteDrawOrder.size - 1); j++) {
-				spriteDrawOrder.SafeIndex(j + 1) = spriteDrawOrder[j];
+			spriteDrawOrder << spriteDrawOrder[spriteDrawOrder.size - 1];
+			if (i != (spriteDrawOrder.size - 2)) {
+				Sprite* curSprite = spriteDrawOrder.SafeIndex(i);
+				for (size_t j = i; j < (spriteDrawOrder.size - 1); j++) {
+					Sprite* nextCurSprite = spriteDrawOrder.SafeIndex(j + 1);
+					spriteDrawOrder.SafeIndex(j + 1) = curSprite;
+					curSprite = nextCurSprite;
+				}
 			}
 			spriteDrawOrder[i] = this;
 			inserted = true;
