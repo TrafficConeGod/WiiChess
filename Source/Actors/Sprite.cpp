@@ -77,6 +77,13 @@ void Sprite::Draw(Stage* stage /* Pretend like this does something with stage to
 	}
 }
 
+static const Vector2u texCoords[] = {
+    Vector2u(0, 0),
+    Vector2u(1, 0),
+    Vector2u(1, 1),
+    Vector2u(0, 1),
+};
+
 void Sprite::Draw() {
 	#ifdef GFX_MODE
 	if (!visible) {
@@ -88,17 +95,32 @@ void Sprite::Draw() {
 	}
 	texture->UseTexture();
 
-	Vector2f drawPos(pos.x - origin.x, pos.y - origin.y);
+    Vector2f quad[] = {
+        Vector2f(0, 0),
+        Vector2f(1, 0),
+        Vector2f(1, 1),
+        Vector2f(0, 1)
+    };
 
-	GX_Begin(GX_QUADS, GX_VTXFMT0, 4);			// Draw A Quad
-	GX_Position2f32(drawPos.x, drawPos.y);					// Top Left
-	GX_TexCoord2f32(0, 0);
-	GX_Position2f32(drawPos.x + size.x - 1, drawPos.y);			// Top Right
-	GX_TexCoord2f32(1, 0);
-	GX_Position2f32(drawPos.x + size.x - 1, drawPos.y + size.y - 1);	// Bottom Right
-	GX_TexCoord2f32(1, 1);
-	GX_Position2f32(drawPos.x, drawPos.y + size.y - 1);			// Bottom Left
-	GX_TexCoord2f32(0, 1);
+    GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
+    for (uchar i = 0; i < 4; i++) {
+        Vector2f vert = quad[i];
+
+        // origin
+        vert.x += origin.x;
+        vert.y += origin.y;
+
+        // scale
+        vert.x *= size.x - 1;
+        vert.y *= size.y - 1;
+
+        // translate
+        vert.x += pos.x;
+        vert.y += pos.y;
+
+        GX_Position2f32(vert.x, vert.y);	
+        GX_Position2f32(texCoords[i].x, texCoords[i].y);	
+    }
 	GX_End();
 	#endif
 }

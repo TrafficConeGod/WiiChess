@@ -46,6 +46,7 @@ void Piece::ButtonsDown(uint buttons) {
     Inputtable::ButtonsDown(buttons);
     if (hovered && !held && (buttons & WPAD_BUTTON_A)) {
         origPos = pos;
+        origin = Vector2f(0.5, 1);
         held = true;
     }
 }
@@ -54,6 +55,7 @@ void Piece::ButtonsUp(uint buttons) {
     Inputtable::ButtonsUp(buttons);
     if (held && (buttons & WPAD_BUTTON_A)) {
         pos = origPos;
+        origin = Vector2f(0, 0);
         held = false;
     }
 }

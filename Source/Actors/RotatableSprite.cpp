@@ -45,8 +45,8 @@ void RotatableSprite::Draw() {
         Vector2f vert = quad[i];
 
         // origin
-        vert.x -= origin.x;
-        vert.y -= origin.y;
+        vert.x += origin.x;
+        vert.y += origin.y;
 
         // rotate
         vert.x = (orig.x * cos(radians)) - (orig.y * sin(radians));
