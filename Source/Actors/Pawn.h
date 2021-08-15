@@ -5,6 +5,6 @@ class Pawn : public virtual Piece {
     public:
         static const short ID = 6;
 
-        Pawn(Stage* stage);
+        ActorConstructor(Pawn)
         virtual bool IsOfType(short id);
 };

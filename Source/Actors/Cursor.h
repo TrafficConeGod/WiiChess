@@ -6,7 +6,7 @@ class Cursor : public virtual RotatableSprite, public virtual Inputtable {
     public:
         static const short ID = 8;
 
-        Cursor(Stage* stage);
+        ActorConstructor(Cursor)
         virtual bool IsOfType(short id);
 
         virtual void HandlePointer(const ir_t& pointer);

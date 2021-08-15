@@ -13,7 +13,7 @@ class Sprite : public virtual Actor {
         uint layer;
         ActorReference<TextureResource> textureRef;
 
-        using Actor::Actor;
+        ActorConstructor(Sprite)
         virtual bool IsOfType(short id);
         
         virtual void Load(DataStream& stream);

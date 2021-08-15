@@ -7,7 +7,7 @@ class TextureResource : public virtual Resource {
     public:
         static const short ID = 3;
 
-        using Resource::Resource;
+        ActorConstructor(TextureResource)
         virtual bool IsOfType(short id);
 
         virtual void Load(DataStream& stream);

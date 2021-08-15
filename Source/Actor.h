@@ -3,6 +3,9 @@
 #include "DataStream.h"
 #include "Array.h"
 
+#define ActorConstructor(name) name() {} \
+name(Stage* _stage) : Actor(_stage) {}
+
 class Stage;
 
 class Actor {
@@ -24,6 +27,7 @@ class Actor {
         Stage* stage;
 
         Actor(Stage* stage);
+        Actor();
         ~Actor();
 
         virtual bool IsOfType(short id);

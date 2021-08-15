@@ -5,6 +5,8 @@
 
 Actor::Actor(Stage* _stage) : stage{_stage}, index{_stage->GetCurrentIndex()} {}
 
+Actor::Actor() {}
+
 static void DestroyAction(Actor* actor) {
     actor->Destroy();
 }

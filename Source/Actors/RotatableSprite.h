@@ -7,7 +7,7 @@ class RotatableSprite : public virtual Sprite {
 
         float radians;
 
-        using Sprite::Sprite;
+        ActorConstructor(RotatableSprite)
         virtual bool IsOfType(short id);
 
         virtual void Load(DataStream& stream);

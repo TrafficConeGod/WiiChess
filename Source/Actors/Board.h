@@ -10,7 +10,7 @@ class Board : public virtual Sprite {
     public:
         static const short ID = 4;
 
-        using Sprite::Sprite;
+        ActorConstructor(Board)
         virtual bool IsOfType(short id);
 
         virtual void Load(DataStream& stream);

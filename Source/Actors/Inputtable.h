@@ -7,7 +7,7 @@ class Inputtable : public virtual Actor {
     public:
         static const short ID = -1;
 
-        using Actor::Actor;
+        ActorConstructor(Inputtable)
         virtual bool IsOfType(short id);
 
         virtual void ButtonsDown(uint buttons);

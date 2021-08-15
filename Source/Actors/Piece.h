@@ -19,7 +19,7 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         Color color;
         Vector2u loc;
 
-        Piece(Stage* stage);
+        ActorConstructor(Piece)
         virtual bool IsOfType(short id);
 
         virtual void Load(DataStream& stream);
