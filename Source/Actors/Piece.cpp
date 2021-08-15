@@ -12,7 +12,7 @@ void Piece::Load(DataStream& stream) {
 
 void Piece::Create() {
     Sprite::Create();
-    size = Vector2i(60, 60);
+    size = Vector2u(60, 60);
     Board* board = boardRef;
     if (board == nullptr) {
         return;
@@ -31,7 +31,7 @@ void Piece::Update() {
 void Piece::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
     if (held) {
-        pos = Vector2i(pointer.x, pointer.y);
+        pos = Vector2u(pointer.x, pointer.y);
     } else {
         hovered = (pointer.x >= pos.x && pointer.y >= pos.y && pointer.x < (pos.x + size.x) && pointer.y < (pos.y + size.y));
     }

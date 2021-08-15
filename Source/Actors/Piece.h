@@ -4,7 +4,7 @@
 
 class Piece : public virtual Sprite, public virtual Inputtable {
     private:
-        Vector2i origPos;
+        Vector2u origPos;
         bool hovered;
         bool held;
     public:

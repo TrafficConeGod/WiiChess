@@ -1,4 +1,4 @@
-Sprite,,Vector2Int Position,Vector2Int Size,UInt Layer,Actor Texture
+Sprite,,Vector2UInt Position,Vector2UInt Size,UInt Layer,Actor Texture
 Resource,,String Path,,,
 TextureResource,Resource,,,,
 Board,Sprite,UInt PieceLayer,Actor BlackPawnTexture,,

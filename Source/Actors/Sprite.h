@@ -8,8 +8,8 @@ class Sprite : public virtual Actor {
     public:
         static const short ID = 1;
 
-        Vector2i pos;
-        Vector2i size;
+        Vector2u pos;
+        Vector2u size;
         uint layer;
         ActorReference<TextureResource> textureRef;
 
