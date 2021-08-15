@@ -13,7 +13,6 @@ class Array {
         ~Array();
 
         T& operator[](size_t index);
-        T& SafeIndex(size_t index);
 
         Array& operator<<(const T& val);
         Array& operator>>(T& val);

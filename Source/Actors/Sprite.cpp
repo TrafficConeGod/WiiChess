@@ -19,35 +19,38 @@ void Sprite::Load(DataStream& stream) {
 
 void Sprite::Create() {
 	Actor::Create();
+	spriteDrawOrder << this;
 
-	bool inserted = false;
-	for (size_t i = 0; i < spriteDrawOrder.size; i++) {
-		if (spriteDrawOrder[i]->layer > layer) {
-			spriteDrawOrder << spriteDrawOrder[spriteDrawOrder.size - 1];
-			if (i != (spriteDrawOrder.size - 2)) {
-				Sprite* curSprite = spriteDrawOrder.SafeIndex(i);
-				for (size_t j = i; j < (spriteDrawOrder.size - 1); j++) {
-					Sprite* nextCurSprite = spriteDrawOrder.SafeIndex(j + 1);
-					spriteDrawOrder.SafeIndex(j + 1) = curSprite;
-					curSprite = nextCurSprite;
-				}
-			}
-			spriteDrawOrder[i] = this;
-			inserted = true;
-			break;
-		}
-	}
-	if (!inserted) {
-		spriteDrawOrder << this;
-	}
+	// Why wont this code wont work? I dont fucking know, all i know is im done with trying to get it to work
+	
+	// bool inserted = false;
+	// for (size_t i = 0; i < spriteDrawOrder.size; i++) {
+	// 	if (spriteDrawOrder[i]->layer > layer && spriteDrawOrder.size) {
+	// 		spriteDrawOrder << spriteDrawOrder[spriteDrawOrder.size - 1];
+	// 		if (i != (spriteDrawOrder.size - 2)) {
+	// 			Sprite* curSprite = spriteDrawOrder[i];
+	// 			for (size_t j = i; j < (spriteDrawOrder.size - 1); j++) {
+	// 				Sprite* nextCurSprite = spriteDrawOrder[j + 1];
+	// 				spriteDrawOrder[j + 1] = curSprite;
+	// 				curSprite = nextCurSprite;
+	// 			}
+	// 		}
+	// 		spriteDrawOrder[i] = this;
+	// 		inserted = true;
+	// 		break;
+	// 	}
+	// }
+	// if (!inserted) {
+	// 	spriteDrawOrder << this;
+	// }
 }
 
 void Sprite::UpdateDrawOrder() {
 	if (currentSpriteDrawOrderIndex != 0) {
-		Sprite* previousSprite = spriteDrawOrder.SafeIndex(currentSpriteDrawOrderIndex - 1);
+		Sprite* previousSprite = spriteDrawOrder[currentSpriteDrawOrderIndex - 1];
 		if (previousSprite->layer > layer) {
 			// swap sprites
-			spriteDrawOrder.SafeIndex(currentSpriteDrawOrderIndex - 1) = this;
+			spriteDrawOrder[currentSpriteDrawOrderIndex - 1] = this;
 			spriteDrawOrder[currentSpriteDrawOrderIndex] = previousSprite;
 		}
 	}
@@ -56,7 +59,7 @@ void Sprite::UpdateDrawOrder() {
 void Sprite::Destroy() {
 	Actor::Destroy();
 	for (size_t i = currentSpriteDrawOrderIndex; i < (spriteDrawOrder.size - 1); i++) {
-		spriteDrawOrder[i] = spriteDrawOrder.SafeIndex(i + 1);
+		spriteDrawOrder[i] = spriteDrawOrder[i + 1];
 	}
 	// into the trash it goes
 	Sprite* trashSprite;

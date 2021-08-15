@@ -19,15 +19,13 @@ Array<T>::~Array() {
 
 template<typename T>
 T& Array<T>::operator[](size_t index) {
-    return buf[index];
-}
-
-template<typename T>
-T& Array<T>::SafeIndex(size_t index) {
+    #ifdef DEBUG_MODE
     if (index >= size) {
-        Error("Out of bounds");
+        PrintFmt("Attempt to index %d out of size of %d", index, size);
+        Error("Out of array bounds");
         exit(0);
     }
+    #endif
     return buf[index];
 }
 
