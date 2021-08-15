@@ -23,8 +23,8 @@ class Actor {
     public:
         static const uint ID = 0;
         
-        size_t index;
-        Stage* stage;
+        size_t index = 0;
+        Stage* stage = nullptr;
 
         Actor(Stage* stage);
         Actor();

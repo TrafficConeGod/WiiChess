@@ -34,14 +34,23 @@ void RotatableSprite::Draw() {
 
     Vector2f quad[] = {
         Vector2f(0, 0),
-        Vector2f(rot.x, rot.y),
-        Vector2f(rot.x - rot.y, rot.y + rot.x),
-        Vector2f(-rot.y, rot.x)
+        Vector2f(1, 0),
+        Vector2f(1, 1),
+        Vector2f(0, 1)
     };
 
     GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
     for (uchar i = 0; i < 4; i++) {
+        Vector2f& orig = quad[i];
         Vector2f vert = quad[i];
+
+        // origin
+        vert.x -= origin.x;
+        vert.y -= origin.y;
+
+        // rotate
+        vert.x = (orig.x * cos(radians)) - (orig.y * sin(radians));
+        vert.y = (orig.x * sin(radians)) + (orig.y * cos(radians));
 
         // scale
         vert.x *= size.x - 1;
