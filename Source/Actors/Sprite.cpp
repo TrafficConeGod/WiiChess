@@ -107,16 +107,14 @@ void Sprite::Draw() {
         Vector2f vert = quad[i];
 
         // origin
-        vert.x += origin.x;
-        vert.y += origin.y;
+        vert += origin;
 
         // scale
         vert.x *= size.x - 1;
         vert.y *= size.y - 1;
 
         // translate
-        vert.x += pos.x;
-        vert.y += pos.y;
+        vert += pos;
 
         GX_Position2f32(vert.x, vert.y);	
         GX_Position2f32(texCoords[i].x, texCoords[i].y);	
