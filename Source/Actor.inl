@@ -3,11 +3,11 @@
 
 template<typename A>
 A* Actor::CreateChildFrom(A* actor) {
-    Actor* clone = stage->AllocateActor(A::ID);
+    A* clone = dynamic_cast<A*>(stage->AllocateActor(A::ID));
     *clone = *actor;
     clone->Initialize();
-    children << clone;
-    return dynamic_cast<A*>(clone);
+    children << dynamic_cast<Actor*>(clone);
+    return clone;
 }
 
 template<typename A>

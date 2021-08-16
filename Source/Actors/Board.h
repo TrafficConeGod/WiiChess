@@ -5,7 +5,8 @@ class Piece;
 
 class Board : public virtual Sprite {
     private:
-        ActorReference<Piece> blackPawnRef;
+        Array<ActorReference<Piece>> pieceRefs;
+        Array<uint> initialState;
     public:
         static const short ID = 5;
 
@@ -15,6 +16,4 @@ class Board : public virtual Sprite {
         virtual void Load(DataStream& stream);
 
         virtual void Create();
-
-        void AddPiece(Piece* piece);
 };

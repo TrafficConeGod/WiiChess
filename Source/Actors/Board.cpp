@@ -7,13 +7,11 @@ bool Board::IsOfType(short id) {
 
 void Board::Load(DataStream& stream) {
     Sprite::Load(stream);
-    blackPawnRef.Load(stage, stream);
+    ActorReference<Piece>::Load(stage, stream, pieceRefs);
+    initialState.Load(stream);
 }
 
 void Board::Create() {
-    
-}
-
-void Board::AddPiece(Piece* piece) {
+    Sprite::Create();
     
 }

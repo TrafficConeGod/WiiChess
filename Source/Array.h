@@ -12,6 +12,8 @@ class Array {
         Array(const Array<T>& arr);
         ~Array();
 
+        void Load(DataStream& stream);
+
         T& operator[](size_t index);
 
         Array& operator<<(const T& val);

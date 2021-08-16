@@ -1,6 +1,6 @@
-TextureResource: CursorTexture,Active,TRUE,Path,Data/Textures/Cursor.tpl,,,,,,,,,,,,
-Cursor,Active,TRUE,Position,"0, 0",Size,"37, 52",Origin,"0.5, 0.5",Visible,FALSE,Layer,2,Degrees,45,Texture,CursorTexture
-TextureResource: BPT,Active,TRUE,Path,Data/Textures/BlackPawn.tpl,,,,,,,,,,,,
-Piece: BlackPawn,Active,FALSE,Position,"0, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BPT,,
-TextureResource: BackgroundTexture,Active,TRUE,Path,Data/Textures/Background.tpl,,,,,,,,,,,,
-Board,Active,TRUE,Position,"0, 0",Size,"640, 480",Origin,"0, 0",Visible,TRUE,Layer,0,Texture,BackgroundTexture,BlackPawn,BlackPawn
+TextureResource: CursorTexture,Active,TRUE,Path,Data/Textures/Cursor.tpl,,,,,,,,,,,,,,
+Cursor,Active,TRUE,Position,"0, 0",Size,"37, 52",Origin,"0.5, 0.5",Visible,FALSE,Layer,2,Degrees,45,Texture,CursorTexture,,
+TextureResource: BPT,Active,TRUE,Path,Data/Textures/BlackPawn.tpl,,,,,,,,,,,,,,
+Piece: BlackPawn,Active,FALSE,Position,"0, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BPT,,,,
+TextureResource: BackgroundTexture,Active,TRUE,Path,Data/Textures/Background.tpl,,,,,,,,,,,,,,
+Board,Active,TRUE,Position,"0, 0",Size,"640, 480",Origin,"0, 0",Visible,TRUE,Layer,0,Pieces,BlackPawn,State,"0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1",Texture,BackgroundTexture

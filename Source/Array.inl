@@ -4,16 +4,29 @@
 template<typename T>
 Array<T>::Array() {}
 
-template<typename T>
-void Array<T>::operator=(const Array<T>& arr) {}
+// template<typename T>
+// void Array<T>::operator=(const Array<T>& arr) {
 
-template<typename T>
-Array<T>::Array(const Array<T>& arr) {}
+// }
+
+// template<typename T>
+// Array<T>::Array(const Array<T>& arr) {}
 
 template<typename T>
 Array<T>::~Array() {
     if (buf != nullptr) {
         free(buf);
+    }
+}
+
+template<typename T>
+void Array<T>::Load(DataStream& stream) {
+    stream >> size;
+    buf = (T*)malloc(size * sizeof(T));
+    for (size_t i = 0; i < size; i++) {
+        T val;
+        stream >> val;
+        buf[i] = val;
     }
 }
 

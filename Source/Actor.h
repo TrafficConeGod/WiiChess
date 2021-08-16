@@ -10,7 +10,6 @@ class Stage;
 
 class Actor {
     protected:
-        bool active = false;
         bool initialized = false;
         bool alive = false;
 
@@ -26,6 +25,7 @@ class Actor {
     public:
         static const uint ID = 1;
         
+        bool active = false;
         size_t index = 0;
         Stage* stage = nullptr;
 
