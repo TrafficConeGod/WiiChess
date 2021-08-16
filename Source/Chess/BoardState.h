@@ -9,19 +9,16 @@ namespace Chess {
         Vector2u to;
     };
     class BoardState {
-        private:
+        public:
             Array<Vector2u> pieceLocs;
             Space spaces[64];
 
-            Space* GetSpace(Vector2u loc);
-            Vector2u GetLoc(size_t index);
-        public:
             BoardState(const BoardState& state);
             BoardState(Array<Space>& spaces);
 
-            Array<Space> GetPieceSpaces();
-
-            Array<Move> GetMoves();
+            Space* GetSpace(Vector2u loc);
+            Vector2u GetLoc(size_t index);
+            void GetMoves(Array<Move>& ret);
             void MoveFromTo(Move move);
     };
 }

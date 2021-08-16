@@ -20,15 +20,16 @@ void Board::Create() {
     boardState = new Chess::BoardState(spaces);
 
 
-    Array<Chess::Space> pieceSpaces = boardState->GetPieceSpaces();
-    for (size_t i = 0; i < pieceSpaces.size; i++) {
-        const Chess::Space& space = pieceSpaces[i];
-        size_t pieceTypeIndex = space.type;
-        pieceTypeIndex++;
+    for (size_t i = 0; i < boardState->pieceLocs.size; i++) {
+        Vector2u loc = boardState->pieceLocs[i];
+        Chess::Space* space = boardState->GetSpace(loc);
+        size_t pieceTypeIndex = space->type;
+        pieceTypeIndex--;
         Piece* pieceBase = pieceRefs[pieceTypeIndex];
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
             piece->active = true;
+            piece->pos = Vector2u(piece->pos.x + (loc.x * piece->size.x), piece->pos.y + (loc.y * piece->size.y));
             piece->Initialize();
         }
     }

@@ -15,17 +15,9 @@ BoardState::BoardState(Array<Space>& spacesToAdd) {
 }
 
 Space* BoardState::GetSpace(Vector2u loc) {
-    return spaces[loc.x + (loc.y * 8)];
+    return &spaces[loc.x + (loc.y * 8)];
 }
 
 Vector2u BoardState::GetLoc(size_t index) {
     return Vector2u(index % 8, index / 8);
-}
-
-Array<Space> BoardState::GetPieceSpaces() {
-    Array<Space> pieceSpaces;
-    for (size_t i = 0; i < pieceLocs.size; i++) {
-        pieceSpaces << GetSpace(pieceLocs[i]);
-    }
-    return pieceSpaces;
 }

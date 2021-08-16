@@ -8,9 +8,8 @@ namespace Chess {
         public:
             Engine(Array<Space>& spaces);
 
-            Array<Space> GetPieceSpaces();
-
-            Array<Move> GetMoves();
+            void GetPieceSpaces(Array<Space*>& ret);
+            void GetMoves(Array<Move>& ret);
             Move GetBestMoveFor(Space::Color color);
             void MoveFromTo(Move move);
     };

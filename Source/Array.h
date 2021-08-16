@@ -1,5 +1,6 @@
 #pragma once
 #include "Wii/io.h"
+#include "DataStream.h"
 
 template<typename T>
 class Array {
