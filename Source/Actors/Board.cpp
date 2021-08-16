@@ -15,7 +15,13 @@ void Board::Create() {
     Sprite::Create();
     Array<Chess::Space> spaces;
     for (size_t i = 0; i < initialState.size; i++) {
-        spaces << Chess::Space((Chess::Space::Type)(initialState[i]), Chess::Space::Color::Black);
+        uchar type = initialState[i];
+        Chess::Space::Color color = Chess::Space::Color::Black;
+        if (type % 10 == 0) {
+            color = Chess::Space::Color::White;
+            type /= 10;
+        }
+        spaces << Chess::Space((Chess::Space::Type)type, color);
     }
     boardState = new Chess::BoardState(spaces);
 
@@ -24,7 +30,10 @@ void Board::Create() {
         Vector2u loc = boardState->pieceLocs[i];
         Chess::Space* space = boardState->GetSpace(loc);
         size_t pieceTypeIndex = space->type;
-        pieceTypeIndex--;
+        if (space->color == Chess::Space::Color::Black) {
+            pieceTypeIndex--;
+        }
+        // PrintFmt("%d\n", pieceTypeIndex);
         Piece* pieceBase = pieceRefs[pieceTypeIndex];
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
@@ -33,9 +42,4 @@ void Board::Create() {
             piece->Initialize();
         }
     }
-}
-
-void Board::Destroy() {
-    Sprite::Destroy();
-    delete boardState;
 }

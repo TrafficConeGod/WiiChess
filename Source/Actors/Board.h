@@ -7,7 +7,7 @@ class Piece;
 class Board : public virtual Sprite {
     private:
         Array<ActorReference<Piece>> pieceRefs;
-        Array<uint> initialState;
+        Array<uchar> initialState;
         Chess::BoardState* boardState;
     public:
         static const short ID = 5;
@@ -18,5 +18,4 @@ class Board : public virtual Sprite {
         virtual void Load(DataStream& stream);
 
         virtual void Create();
-        virtual void Destroy();
 };

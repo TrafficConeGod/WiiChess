@@ -2,5 +2,11 @@ TextureResource: CursorTexture,Active,TRUE,Path,Data/Textures/Cursor.tpl,,,,,,,,
 Cursor,Active,TRUE,Position,"0, 0",Size,"37, 52",Origin,"0.5, 0.5",Visible,FALSE,Layer,2,Degrees,45,Texture,CursorTexture,,
 TextureResource: BPT,Active,TRUE,Path,Data/Textures/BlackPawn.tpl,,,,,,,,,,,,,,
 Piece: BlackPawn,Active,FALSE,Position,"80, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BPT,,,,
+TextureResource: BRT,Active,TRUE,Path,Data/Textures/BlackRook.tpl,,,,,,,,,,,,,,
+Piece: BlackRook,Active,FALSE,Position,"80, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BRT,,,,
+TextureResource: BKNT,Active,TRUE,Path,Data/Textures/BlackKnight.tpl,,,,,,,,,,,,,,
+Piece: BlackKnight,Active,FALSE,Position,"80, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BKNT,,,,
+TextureResource: BBT,Active,TRUE,Path,Data/Textures/BlackBishop.tpl,,,,,,,,,,,,,,
+Piece: BlackBishop,Active,FALSE,Position,"80, 0",Size,"60, 60",Origin,"0, 0",Visible,TRUE,Layer,1,Texture,BBT,,,,
 TextureResource: BackgroundTexture,Active,TRUE,Path,Data/Textures/Background.tpl,,,,,,,,,,,,,,
-Board,Active,TRUE,Position,"0, 0",Size,"640, 480",Origin,"0, 0",Visible,TRUE,Layer,0,Pieces,BlackPawn,State,"0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1",Texture,BackgroundTexture
+Board,Active,TRUE,Position,"0, 0",Size,"640, 480",Origin,"0, 0",Visible,TRUE,Layer,0,Pieces,"BlackPawn, BlackRook, BlackKnight, BlackBishop",State,"2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20, 20",Texture,BackgroundTexture

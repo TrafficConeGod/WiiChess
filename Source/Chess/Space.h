@@ -8,7 +8,8 @@ namespace Chess {
         };
         enum Type {
             None,
-            Pawn
+            Pawn,
+            Rook
         };
         Type type = None;
         Color color;

@@ -2,7 +2,7 @@ Actor,,Bool Active,,,,,
 Sprite,Actor,Vector2UInt Position,Vector2UInt Size,Vector2Float Origin,Bool Visible,UInt Layer,Actor Texture
 Resource,Actor,String Path,,,,,
 TextureResource,Resource,,,,,,
-Board,Sprite,Actor[] Pieces,UInt[] State,,,,
+Board,Sprite,Actor[] Pieces,UChar[] State,,,,
 Piece,Sprite,Actor Board,,,,,
 RotatableSprite,Sprite,UInt Degrees,,,,,
 Cursor,RotatableSprite,,,,,,
