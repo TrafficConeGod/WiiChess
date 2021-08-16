@@ -39,13 +39,21 @@ void Board::Create() {
         Piece* pieceBase = pieceRefs[pieceTypeIndex];
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
+            pieces << piece;
             piece->active = true;
-            piece->pos = Vector2u(piece->pos.x + (loc.x * piece->size.x), piece->pos.y + (loc.y * piece->size.y));
+            piece->pos += (loc * piece->size);
             piece->Initialize();
         }
     }
 }
 
 void Board::UpdateDisplay() {
-    
+    for (size_t i = 0; i < pieces.size; i++) {
+        if (i < engine.state->pieceLocs.size) {
+            Vector2u loc = engine.state->pieceLocs[i];
+            if (loc == Vector2u(-1, -1)) {
+
+            }
+        }
+    }
 }

@@ -16,8 +16,54 @@ class Vector2 {
         template<typename C>
         operator Vector2<C>();
 
+        friend Vector2<T> operator+(const Vector2<T>& vec, const Vector2<T>& vec2) {
+            return Vector2<T>(vec.x + vec2.x, vec.y + vec2.y);
+        }
+
+        Vector2<T> operator+=(const Vector2<T>& val) {
+            *this = *this + val;
+            return *this;
+        }
+
+        friend Vector2<T> operator-(const Vector2<T>& vec, const Vector2<T>& vec2) {
+            return Vector2<T>(vec.x - vec2.x, vec.y - vec2.y);
+        }
+
+        Vector2<T> operator-=(const Vector2<T>& val) {
+            *this = *this - val;
+            return *this;
+        }
+
         friend Vector2<T> operator*(const Vector2<T>& vec, T scalar) {
             return Vector2<T>(vec.x * scalar, vec.y * scalar);
+        }
+
+        friend Vector2<T> operator*(const Vector2<T>& vec, const Vector2<T>& vec2) {
+            return Vector2<T>(vec.x * vec2.x, vec.y * vec2.y);
+        }
+
+        template<typename C>
+        Vector2<T> operator*=(const C& val) {
+            *this = *this * val;
+            return *this;
+        }
+    
+        friend Vector2<T> operator/(const Vector2<T>& vec, T scalar) {
+            return Vector2<T>(vec.x / scalar, vec.y / scalar);
+        }
+
+        friend Vector2<T> operator/(const Vector2<T>& vec, const Vector2<T>& vec2) {
+            return Vector2<T>(vec.x / vec2.x, vec.y / vec2.y);
+        }
+
+        template<typename C>
+        Vector2<T>& operator/=(const C& val) {
+            *this = *this / val;
+            return *this;
+        }
+
+        friend bool operator==(const Vector2<T>& vec, const Vector2<T>& vec2) {
+            return vec.x == vec2.x && vec.y == vec2.y;
         }
 };
 

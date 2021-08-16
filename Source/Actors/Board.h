@@ -7,6 +7,7 @@ class Piece;
 class Board : public virtual Sprite {
     private:
         Array<ActorReference<Piece>> pieceRefs;
+        Array<Piece*> pieces;
         Array<uchar> initialState;
         Chess::Engine engine;
     public:
