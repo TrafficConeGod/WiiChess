@@ -9,7 +9,11 @@ namespace Chess {
         enum Type {
             None,
             Pawn,
-            Rook
+            Rook,
+            Knight,
+            Bishop,
+            King,
+            Queen
         };
         Type type = None;
         Color color;
