@@ -30,8 +30,10 @@ void Board::Create() {
         Vector2u loc = boardState->pieceLocs[i];
         Chess::Space* space = boardState->GetSpace(loc);
         size_t pieceTypeIndex = space->type;
-        if (space->color == Chess::Space::Color::Black) {
-            pieceTypeIndex--;
+        pieceTypeIndex--;
+        pieceTypeIndex *= 2;
+        if (space->color == Chess::Space::Color::White) {
+            pieceTypeIndex++;
         }
         // PrintFmt("%d\n", pieceTypeIndex);
         Piece* pieceBase = pieceRefs[pieceTypeIndex];
