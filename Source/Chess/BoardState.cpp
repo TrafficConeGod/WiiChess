@@ -6,7 +6,10 @@ BoardState::BoardState(Array<Space>& spacesToAdd) {
         if (i < spacesToAdd.size) {
             spaces[i] = spacesToAdd[i];
             if (spaces[i].type > 0) {
-                pieceLocs << GetLoc(i);
+                pieceLocs << GetLocation(i);
+            }
+            if (spaces[i].type == Space::Type::King) {
+                kingLoc = GetLocation(i);
             }
         } else {
             spaces[i] = Space();
@@ -18,6 +21,6 @@ Space* BoardState::GetSpace(Vector2u loc) {
     return &spaces[loc.x + (loc.y * 8)];
 }
 
-Vector2u BoardState::GetLoc(size_t index) {
+Vector2u BoardState::GetLocation(size_t index) {
     return Vector2u(index % 8, index / 8);
 }

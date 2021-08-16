@@ -23,12 +23,12 @@ void Board::Create() {
         }
         spaces << Chess::Space((Chess::Space::Type)type, color);
     }
-    boardState = new Chess::BoardState(spaces);
+    engine.Initialize(spaces);
 
-
-    for (size_t i = 0; i < boardState->pieceLocs.size; i++) {
-        Vector2u loc = boardState->pieceLocs[i];
-        Chess::Space* space = boardState->GetSpace(loc);
+    Array<Vector2u>& pieceLocs = engine.state->pieceLocs;
+    for (size_t i = 0; i < pieceLocs.size; i++) {
+        Vector2u loc = pieceLocs[i];
+        Chess::Space* space = engine.state->GetSpace(loc);
         size_t pieceTypeIndex = space->type;
         pieceTypeIndex--;
         pieceTypeIndex *= 2;
@@ -44,4 +44,8 @@ void Board::Create() {
             piece->Initialize();
         }
     }
+}
+
+void Board::UpdateDisplay() {
+    
 }
