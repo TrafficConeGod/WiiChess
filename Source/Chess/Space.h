@@ -10,7 +10,12 @@ namespace Chess {
             None,
             Pawn
         };
-        Type type;
+        Type type = None;
         Color color;
+
+        Space();
+        void operator=(const Space& space);
+        Space(const Space& space);
+        Space(Type type, Color color);
     };
 };

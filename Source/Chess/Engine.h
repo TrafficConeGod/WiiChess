@@ -6,8 +6,11 @@ namespace Chess {
         private:
             BoardState state;
         public:
-            Array<Move> GetMoves();
+            Engine(Array<Space>& spaces);
 
+            Array<Space> GetPieceSpaces();
+
+            Array<Move> GetMoves();
             Move GetBestMoveFor(Space::Color color);
             void MoveFromTo(Move move);
     };
