@@ -12,12 +12,6 @@ actor = dynamic_cast<Actor*>(new T(this)); \
 break
 
 Stage::~Stage() {
-    Destroy();
-    for (size_t i = 0; i < actors.size; i++) {
-        if (actors[i] != nullptr) {
-            free(actors[i]);
-        }
-    }
 }
 
 size_t Stage::GetCurrentIndex() {
@@ -92,12 +86,12 @@ void Stage::Initialize() {
     }
 }
 
-static void DestroyAction(Actor* actor) {
-    actor->Destroy();
+static void DeleteAction(Actor* actor) {
+    actor->Delete();
 }
 
-void Stage::Destroy() {
-    UseActors(DestroyAction);
+void Stage::Delete() {
+    UseActors(DeleteAction);
 }
 
 void Stage::UseActors(void (*func)(Actor*)) {

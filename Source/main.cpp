@@ -224,6 +224,7 @@ int main(int argCount, char** args) {
 		uint buttonsDown = WPAD_ButtonsDown(0);
 
 		if (buttonsDown & WPAD_BUTTON_HOME) {
+			stage.Delete();
 			exit(0);
 		}
 

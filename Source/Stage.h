@@ -21,7 +21,7 @@ class Stage {
         bool LoadFromFile(const char* path);
 
         void Initialize();
-        void Destroy();
+        void Delete();
 
         void UseActors(void (*action)(Actor*));
         

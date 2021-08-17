@@ -10,6 +10,15 @@ void Piece::Create() {
     origPos = pos;
 }
 
+void Piece::Hold() {
+    held = true;
+}
+
+void Piece::Release() {
+    UpdateLocation(loc);
+    held = false;
+}
+
 void Piece::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
     if (pointer.valid) {
@@ -19,23 +28,21 @@ void Piece::HandlePointer(const ir_t& pointer) {
             hovered = (pointer.x >= pos.x && pointer.y >= pos.y && pointer.x < (pos.x + size.x) && pointer.y < (pos.y + size.y));
         }
     } else if (held) {
-        UpdateLocation(loc);
-        held = false;
+        Release();
     }
 }
 
 void Piece::ButtonsDown(uint buttons) {
     Inputtable::ButtonsDown(buttons);
     if (hovered && !held && (buttons & WPAD_BUTTON_A)) {
-        held = true;
+        Hold();
     }
 }
 
 void Piece::ButtonsUp(uint buttons) {
     Inputtable::ButtonsUp(buttons);
     if (held && (buttons & WPAD_BUTTON_A)) {
-        UpdateLocation(loc);
-        held = false;
+        Release();
     }
 }
 

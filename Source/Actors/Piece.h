@@ -7,6 +7,9 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         bool hovered;
         bool held;
         Vector2u origPos;
+
+        void Hold();
+        void Release();
     public:
         static const short ID = 6;
 
