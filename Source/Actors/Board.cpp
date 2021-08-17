@@ -39,21 +39,31 @@ void Board::Create() {
         Piece* pieceBase = pieceRefs[pieceTypeIndex];
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
-            pieces << piece;
             piece->active = true;
             piece->pos += (loc * piece->size);
             piece->Initialize();
         }
     }
+
+    engine.state->pieceLocs[2] = Vector2u(-1, -1);
+    UpdateDisplay();
+}
+
+struct RemovePieceActionState {
+    Board* board;
+    size_t index;
+};
+
+void RemovePieceAction(Piece* piece, RemovePieceActionState* state) {
+    Array<Vector2u>& pieceLocs = state->board->engine.state->pieceLocs;
+    Vector2u loc = pieceLocs[state->index];
+    if (loc == Vector2u(-1, -1)) {
+        piece->Destroy();
+    }
+    state->index++;
 }
 
 void Board::UpdateDisplay() {
-    for (size_t i = 0; i < pieces.size; i++) {
-        if (i < engine.state->pieceLocs.size) {
-            Vector2u loc = engine.state->pieceLocs[i];
-            if (loc == Vector2u(-1, -1)) {
-
-            }
-        }
-    }
+    RemovePieceActionState state = { this, 0 };
+    UseChildrenOfWith(&state, RemovePieceAction);
 }

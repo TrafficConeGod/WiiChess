@@ -99,6 +99,8 @@ void Stage::Destroy() {
 void Stage::UseActors(void (*func)(Actor*)) {
     for (size_t i = 0; i < actors.size; i++) {
         auto actor = actors[i];
-        actor->Use(func);
+        if (actor != nullptr) {
+            actor->Use(func);
+        }
     }
 }

@@ -9,10 +9,13 @@ name(Stage* _stage) : Actor(_stage) {}
 class Stage;
 
 class Actor {
+    private:
+        void RemoveChild(Actor* actor);
     protected:
         bool initialized = false;
         bool alive = false;
 
+        Actor* parent = nullptr;
         Array<Actor*> children;
 
         Actor* CreateChild(short id);
@@ -45,6 +48,17 @@ class Actor {
 
         template<typename A, typename T>
         void UseOfWith(const T& val, void (*func)(A*, T));
+
+        void UseChildren(void (*func)(Actor*));
+
+        template<typename A>
+        void UseChildrenOf(void (*func)(A*));
+
+        template<typename T>
+        void UseChildrenWith(const T& val, void (*func)(Actor*, T));
+
+        template<typename A, typename T>
+        void UseChildrenOfWith(const T& val, void (*func)(A*, T));
 
         void Initialize();
 

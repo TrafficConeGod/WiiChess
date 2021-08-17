@@ -7,11 +7,11 @@ class Piece;
 class Board : public virtual Sprite {
     private:
         Array<ActorReference<Piece>> pieceRefs;
-        Array<Piece*> pieces;
         Array<uchar> initialState;
-        Chess::Engine engine;
     public:
         static const short ID = 5;
+
+        Chess::Engine engine;
 
         ActorConstructor(Board)
         virtual bool IsOfType(short id);

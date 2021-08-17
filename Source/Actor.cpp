@@ -28,22 +28,41 @@ void Actor::Use(void (*func)(Actor*)) {
     }
 }
 
+void Actor::UseChildren(void (*func)(Actor*)) {
+    for (size_t i = 0; i < children.size; i++) {
+        children[i]->Use(func);
+    }
+}
+
 Actor* Actor::CreateChild(short id) {
     Actor* actor = stage->AllocateActor(id);
     actor->Initialize();
-    children << actor;
+    MakeChild(actor);
     return actor;
 }
 
 Actor* Actor::CreateChildFrom(DataStream& stream) {
     Actor* actor = stage->LoadActor(stream);
     actor->Initialize();
-    children << actor;
+    MakeChild(actor);
     return actor;
 }
 
 void Actor::MakeChild(Actor* actor) {
-    children << actor;
+    if (actor->parent != nullptr) {
+        actor->parent = this;
+        children << actor;
+    }
+}
+
+void Actor::RemoveChild(Actor* actor) {
+    actor->parent = nullptr;
+    for (size_t i = 0; i < children.size; i++) {
+        if (children[i] == actor) {
+            children[i] = nullptr;
+            break;
+        }
+    }
 }
 
 bool Actor::IsOfType(short id) {
@@ -61,9 +80,14 @@ void Actor::Create() {
 void Actor::Destroy() {
     alive = false;
     stage->RemoveActor(index);
+    if (parent != nullptr) {
+        parent->RemoveChild(this);
+    }
     for (size_t i = 0; i < children.size; i++) {
         Actor* child = children[i];
-        child->Destroy();
+        if (child != nullptr) {
+            child->Use(DestroyAction);
+        }
     }
 }
 
