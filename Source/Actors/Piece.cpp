@@ -12,11 +12,19 @@ void Piece::Create() {
 
 void Piece::Hold() {
     held = true;
+    Board* board = boardRef;
+    if (board != nullptr) {
+        board->ShowMoves(loc);
+    }
 }
 
 void Piece::Release() {
     UpdateLocation(loc);
     held = false;
+    Board* board = boardRef;
+    if (board != nullptr) {
+        board->HideMoves();
+    }
 }
 
 void Piece::HandlePointer(const ir_t& pointer) {

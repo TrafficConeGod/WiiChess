@@ -1,5 +1,6 @@
 #include "Board.h"
 #include "Piece.h"
+#include "MoveHint.h"
 
 bool Board::IsOfType(short id) {
     return id == ID || Sprite::IsOfType(id);
@@ -9,6 +10,7 @@ void Board::Load(DataStream& stream) {
     Sprite::Load(stream);
     ActorReference<Piece>::Load(stage, stream, pieceRefs);
     initialState.Load(stream);
+    moveHintRef.Load(stage, stream);
 }
 
 void Board::Create() {
@@ -67,4 +69,26 @@ void RemovePieceAction(Piece* piece, RemovePieceActionState* state) {
 void Board::UpdateDisplay() {
     RemovePieceActionState state = { this, 0 };
     UseChildrenOfWith(&state, RemovePieceAction);
+}
+
+void Board::ShowMoves(Vector2u loc) {
+    size_t index = engine.state->GetIndex(loc);
+    Array<Vector2u>& moves = engine.currentMoves[index];
+    for (size_t i = 0; i < moves.size; i++) {
+        MoveHint* hintBase = moveHintRef;
+        if (hintBase != nullptr) {
+            MoveHint* hint = CreateChildFrom(hintBase);
+            hint->active = true;
+            hint->pos += loc * hint->size;
+            hint->Initialize();
+        }
+    }
+}
+
+void RemoveHintAction(MoveHint* hint) {
+    hint->Delete();
+}
+
+void Board::HideMoves() {
+    UseChildrenOf(RemoveHintAction);
 }

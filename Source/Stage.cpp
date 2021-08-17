@@ -4,6 +4,7 @@
 #include "Actors/Board.h"
 #include "Actors/Piece.h"
 #include "Actors/Cursor.h"
+#include "Actors/MoveHint.h"
 #include "Wii/io.h"
 #include "Wii/file.h"
 
@@ -26,6 +27,7 @@ Actor* Stage::AllocateActor(short id) {
         ActorCase(Board);
         ActorCase(Piece);
         ActorCase(Cursor);
+        ActorCase(MoveHint);
         default:
             Print("Invalid Actor ID");
             return nullptr;

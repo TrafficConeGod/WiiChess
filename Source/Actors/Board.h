@@ -3,11 +3,13 @@
 #include "Chess/Engine.h"
 
 class Piece;
+class MoveHint;
 
 class Board : public virtual Sprite {
     private:
         Array<ActorReference<Piece>> pieceRefs;
         Array<uchar> initialState;
+        ActorReference<MoveHint> moveHintRef;
     public:
         static const short ID = 5;
 
@@ -19,5 +21,8 @@ class Board : public virtual Sprite {
         virtual void Load(DataStream& stream);
 
         virtual void Create();
+
+        void ShowMoves(Vector2u loc);
+        void HideMoves();
         void UpdateDisplay();
 };

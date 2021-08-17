@@ -4,10 +4,6 @@
 #include "Space.h"
 
 namespace Chess {
-    struct Move {
-        Vector2u from;
-        Vector2u to;
-    };
     class BoardState {
         public:
             Array<Vector2u> pieceLocs;
@@ -17,9 +13,10 @@ namespace Chess {
             BoardState(const BoardState& state);
             BoardState(Array<Space>& spaces);
 
-            Space* GetSpace(Vector2u loc);
+            Space* GetSpace(const Vector2u& loc);
+            size_t GetIndex(const Vector2u& loc);
             Vector2u GetLocation(size_t index);
-            void GetMoves(Array<Move>& ret);
-            void MoveFromTo(Move move);
+            void GetMoves(Array<Vector2u>* ret);
+            void GetMovesAt(Vector2u loc, Array<Vector2u>& ret);
     };
 }
