@@ -14,7 +14,9 @@ break
 Stage::~Stage() {
     Destroy();
     for (size_t i = 0; i < actors.size; i++) {
-        free(actors[i]);
+        if (actors[i] != nullptr) {
+            free(actors[i]);
+        }
     }
 }
 
@@ -84,7 +86,9 @@ bool Stage::LoadFromFile(const char* path) {
 void Stage::Initialize() {
     for (size_t i = 0; i < actors.size; i++) {
         auto actor = actors[i];
-        actor->Initialize();
+        if (actor != nullptr) {
+            actor->Initialize();
+        }
     }
 }
 

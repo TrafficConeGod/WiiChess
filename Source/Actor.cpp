@@ -22,8 +22,15 @@ void Actor::Initialize() {
     }
 }
 
+void Actor::Delete() {
+    if (alive && active) {
+        Destroy();
+        free(this);
+    }
+}
+
 void Actor::Use(void (*func)(Actor*)) {
-    if (initialized && alive) {
+    if (initialized && alive && active) {
         func(this);
     }
 }
@@ -49,7 +56,7 @@ Actor* Actor::CreateChildFrom(DataStream& stream) {
 }
 
 void Actor::MakeChild(Actor* actor) {
-    if (actor->parent != nullptr) {
+    if (actor->parent == nullptr) {
         actor->parent = this;
         children << actor;
     }
@@ -83,12 +90,7 @@ void Actor::Destroy() {
     if (parent != nullptr) {
         parent->RemoveChild(this);
     }
-    for (size_t i = 0; i < children.size; i++) {
-        Actor* child = children[i];
-        if (child != nullptr) {
-            child->Use(DestroyAction);
-        }
-    }
+    UseChildren(DestroyAction);
 }
 
 void Actor::Update() {}

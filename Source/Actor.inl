@@ -12,21 +12,21 @@ A* Actor::CreateChildFrom(A* actor) {
 
 template<typename A>
 void Actor::UseOf(void (*func)(A*)) {
-    if (initialized && alive && IsOfType(A::ID)) {
+    if (initialized && alive && active && IsOfType(A::ID)) {
         func(dynamic_cast<A*>(this));
     }
 }
 
 template<typename T>
 void Actor::UseWith(const T& val, void (*func)(Actor*, T)) {
-    if (initialized && alive) {
+    if (initialized && alive && active) {
         func(this, val);
     }
 }
 
 template<typename A, typename T>
 void Actor::UseOfWith(const T& val, void (*func)(A*, T)) {
-    if (initialized && alive && IsOfType(A::ID)) {
+    if (initialized && alive && active && IsOfType(A::ID)) {
         func(dynamic_cast<A*>(this), val);
     }
 }

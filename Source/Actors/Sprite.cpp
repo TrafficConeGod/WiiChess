@@ -60,10 +60,21 @@ void Sprite::UpdateDrawOrder() {
 
 void Sprite::Destroy() {
 	Actor::Destroy();
-	for (size_t i = currentSpriteDrawOrderIndex; i < (spriteDrawOrder.size - 1); i++) {
+	bool found = false;
+	size_t index = 0;
+	for (size_t i = 0; i < spriteDrawOrder.size; i++) {
+		if (spriteDrawOrder[i] == this) {
+			found = true;
+			index = i;
+			break;
+		}
+	}
+	if (!found) {
+		return;
+	}
+	for (size_t i = index; i < (spriteDrawOrder.size - 1); i++) {
 		spriteDrawOrder[i] = spriteDrawOrder[i + 1];
 	}
-	// into the trash it goes
 	Sprite* trashSprite;
 	spriteDrawOrder >> trashSprite;
 }

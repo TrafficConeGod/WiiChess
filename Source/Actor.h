@@ -61,6 +61,7 @@ class Actor {
         void UseChildrenOfWith(const T& val, void (*func)(A*, T));
 
         void Initialize();
+        void Delete();
 
         virtual void Load(DataStream& stream);
         virtual void Destroy();
