@@ -36,20 +36,26 @@ void Actor::UseOfWith(const T& val, void (*func)(A*, T)) {
 template<typename A>
 void Actor::UseChildrenOf(void (*func)(A*)) {
     for (size_t i = 0; i < children.size; i++) {
-        children[i]->UseOf(func);
+        if (children[i] != nullptr) {
+            children[i]->UseOf(func);
+        }
     }
 }
 
 template<typename T>
 void Actor::UseChildrenWith(const T& val, void (*func)(Actor*, T)) {
     for (size_t i = 0; i < children.size; i++) {
-        children[i]->UseWith(val, func);
+        if (children[i] != nullptr) {
+            children[i]->UseWith(val, func);
+        }
     }
 }
 
 template<typename A, typename T>
 void Actor::UseChildrenOfWith(const T& val, void (*func)(A*, T)) {
     for (size_t i = 0; i < children.size; i++) {
-        children[i]->UseOfWith(val, func);
+        if (children[i] != nullptr) {
+            children[i]->UseOfWith(val, func);
+        }
     }
 }

@@ -21,9 +21,14 @@ void Actor::Initialize() {
     }
 }
 
+static void DeleteAction(Actor* actor) {
+    actor->Delete();
+}
+
 void Actor::Delete() {
     if (alive && active) {
         Destroy();
+        UseChildren(DeleteAction);
         delete this;
     }
 }
@@ -36,7 +41,9 @@ void Actor::Use(void (*func)(Actor*)) {
 
 void Actor::UseChildren(void (*func)(Actor*)) {
     for (size_t i = 0; i < children.size; i++) {
-        children[i]->Use(func);
+        if (children[i] != nullptr) {
+            children[i]->Use(func);
+        }
     }
 }
 
