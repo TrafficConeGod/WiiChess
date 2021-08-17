@@ -4,6 +4,12 @@ bool Piece::IsOfType(short id) {
     return id == ID || Sprite::IsOfType(id) || Inputtable::IsOfType(id);
 }
 
+void Piece::Create() {
+    Sprite::Create();
+    Inputtable::Create();
+    origPos = pos;
+}
+
 void Piece::HandlePointer(const ir_t& pointer) {
     Inputtable::HandlePointer(pointer);
     if (pointer.valid) {
@@ -13,7 +19,7 @@ void Piece::HandlePointer(const ir_t& pointer) {
             hovered = (pointer.x >= pos.x && pointer.y >= pos.y && pointer.x < (pos.x + size.x) && pointer.y < (pos.y + size.y));
         }
     } else if (held) {
-        pos = origPos;
+        UpdateLocation(loc);
         held = false;
     }
 }
@@ -21,8 +27,6 @@ void Piece::HandlePointer(const ir_t& pointer) {
 void Piece::ButtonsDown(uint buttons) {
     Inputtable::ButtonsDown(buttons);
     if (hovered && !held && (buttons & WPAD_BUTTON_A)) {
-        origPos = pos;
-        origin = Vector2f(0.5, 1);
         held = true;
     }
 }
@@ -30,8 +34,12 @@ void Piece::ButtonsDown(uint buttons) {
 void Piece::ButtonsUp(uint buttons) {
     Inputtable::ButtonsUp(buttons);
     if (held && (buttons & WPAD_BUTTON_A)) {
-        pos = origPos;
-        origin = Vector2f(0, 0);
+        UpdateLocation(loc);
         held = false;
     }
+}
+
+void Piece::UpdateLocation(Vector2u loc) {
+    this->loc = loc;
+    pos = origPos + (loc * size);
 }

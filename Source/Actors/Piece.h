@@ -4,9 +4,9 @@
 
 class Piece : public virtual Sprite, public virtual Inputtable {
     private:
-        Vector2u origPos;
         bool hovered;
         bool held;
+        Vector2u origPos;
     public:
         static const short ID = 6;
 
@@ -16,11 +16,16 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         };
 
         ActorReference<Board> boardRef;
+        Vector2u loc;
 
         ActorConstructor(Piece)
         virtual bool IsOfType(short id);
 
+        virtual void Create();
+
         virtual void HandlePointer(const ir_t& pointer);
         virtual void ButtonsDown(uint buttons);
         virtual void ButtonsUp(uint buttons);
+
+        void UpdateLocation(Vector2u loc);
 };

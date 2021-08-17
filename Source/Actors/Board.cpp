@@ -40,8 +40,9 @@ void Board::Create() {
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
             piece->active = true;
-            piece->pos += (loc * piece->size);
+            piece->boardRef = this;
             piece->Initialize();
+            piece->UpdateLocation(loc);
         }
     }
 
