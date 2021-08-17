@@ -12,7 +12,6 @@ static void DestroyAction(Actor* actor) {
 }
 
 Actor::~Actor() {
-    Use(DestroyAction);
 }
 
 void Actor::Initialize() {
@@ -25,7 +24,7 @@ void Actor::Initialize() {
 void Actor::Delete() {
     if (alive && active) {
         Destroy();
-        free(this);
+        delete this;
     }
 }
 

@@ -34,7 +34,7 @@ class Actor {
 
         Actor(Stage* stage);
         Actor();
-        ~Actor();
+        virtual ~Actor();
 
         virtual bool IsOfType(short id);
 

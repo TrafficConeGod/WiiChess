@@ -58,7 +58,7 @@ void RemovePieceAction(Piece* piece, RemovePieceActionState* state) {
     Array<Vector2u>& pieceLocs = state->board->engine.state->pieceLocs;
     Vector2u loc = pieceLocs[state->index];
     if (loc == Vector2u(-1, -1)) {
-        piece->Destroy();
+        piece->Delete();
     }
     state->index++;
 }
