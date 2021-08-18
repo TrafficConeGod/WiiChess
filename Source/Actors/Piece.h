@@ -4,8 +4,8 @@
 
 class Piece : public virtual Sprite, public virtual Inputtable {
     private:
-        bool hovered;
-        bool held;
+        bool hovered = false;
+        bool held = false;
         Vector2u origPos;
 
         void Hold();

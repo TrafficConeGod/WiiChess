@@ -24,6 +24,6 @@ class Board : public virtual Sprite {
 
         void ShowMoves(const Vector2u& loc);
         void HideMoves();
-        void MovePiece(const Vector2u& from, const Vector2u& to);
+        bool MovePiece(const Vector2u& from, const Vector2u& to);
         void UpdateDisplay();
 };

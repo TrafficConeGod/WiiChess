@@ -15,6 +15,7 @@ Actor::~Actor() {
 }
 
 void Actor::Initialize() {
+    // we want the actor lifecycle to be active but for the actor to not actually be alive yet
     if (active && !initialized) {
         initialized = true;
         Create();

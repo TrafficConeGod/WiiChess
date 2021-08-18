@@ -19,11 +19,17 @@ void Piece::Hold() {
 }
 
 void Piece::Release() {
-    UpdateLocation(loc);
     held = false;
     Board* board = boardRef;
     if (board != nullptr) {
         board->HideMoves();
+        Vector2u toLoc = (pos - origPos) / size;
+        if (board->MovePiece(loc, toLoc)) {
+            UpdateLocation(toLoc);
+        } else {
+            UpdateLocation(loc);
+        }
+        // board->UpdateDisplay(); // no guarantees this piece will exist after calling this
     }
 }
 

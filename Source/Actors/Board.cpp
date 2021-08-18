@@ -93,3 +93,23 @@ void RemoveHintAction(MoveHint* hint) {
 void Board::HideMoves() {
     UseChildrenOf(RemoveHintAction);
 }
+
+bool Board::MovePiece(const Vector2u& from, const Vector2u& to) {
+    size_t index = engine.state->GetIndex(from);
+    Array<Vector2u>& moves = engine.currentMoves[index];
+
+    bool valid = false;
+    for (size_t i = 0; i < moves.size; i++) {
+        const Vector2u& moveLoc = moves[i];
+        if (moveLoc == to) {
+            valid = true;
+            break;
+        }
+    }
+    if (!valid) {
+        return false;
+    }
+
+    engine.MoveFromTo({ from, to });
+    return true;
+}
