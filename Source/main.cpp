@@ -232,6 +232,12 @@ int main(int argCount, char** args) {
 			exit(0);
 		}
 
+		#ifdef DEBUG_MODE
+		if (buttonsDown & WPAD_BUTTON_PLUS) {
+			ShowConsole();
+		}
+		#endif
+
 		if (buttonsDown) {
 			stage.UseActorsOfWith(buttonsDown, ButtonsDownAction);
 		}
