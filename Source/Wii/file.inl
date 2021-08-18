@@ -5,6 +5,7 @@ template<typename T>
 bool UseFileWith(const char* path, const T& val, bool (*func)(void*, size_t, T)) {
 	int code = access(path, F_OK);
     if (code != 0) {
+		ShowConsole();
 		PrintFmt("File %s not found, code: %d\n", path, code);
 		return false;
 	}
@@ -19,6 +20,7 @@ bool UseFileWith(const char* path, const T& val, bool (*func)(void*, size_t, T))
 	fread(buf, 1, size, file);
 	fclose(file);
     if (!func(buf, size, val)) {
+		ShowConsole();
 		Print("Error in using file");
 		return false;
 	}

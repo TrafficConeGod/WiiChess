@@ -2,6 +2,7 @@
 
 void Error(const char* msg) {
     #ifdef DEBUG_MODE
+    ShowConsole();
     puts("ERROR: ");
     puts(msg);
     #endif
