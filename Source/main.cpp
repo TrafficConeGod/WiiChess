@@ -75,8 +75,11 @@ void ListDir(const char* path) {
 bool gfxVisible = true;
 
 void ShowConsole() {
-	gfxVisible = false;
     #ifdef DEBUG_MODE
+	if (!gfxVisible) {
+		return;
+	}
+	gfxVisible = false;
 	// Initialise the video system
     VIDEO_Init();
 

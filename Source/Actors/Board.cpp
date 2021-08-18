@@ -71,16 +71,15 @@ void Board::UpdateDisplay() {
     UseChildrenOfWith(&state, RemovePieceAction);
 }
 
-void Board::ShowMoves(Vector2u loc) {
+void Board::ShowMoves(const Vector2u& loc) {
     size_t index = engine.state->GetIndex(loc);
     Array<Vector2u>& moves = engine.currentMoves[index];
     for (size_t i = 0; i < moves.size; i++) {
         MoveHint* hintBase = moveHintRef;
         if (hintBase != nullptr) {
-            ShowConsole();
             MoveHint* hint = CreateChildFrom(hintBase);
             hint->active = true;
-            hint->pos += loc * hint->size;
+            hint->pos += (moves[i] * hint->size);
             hint->Initialize();
         }
     }

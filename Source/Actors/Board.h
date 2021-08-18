@@ -22,7 +22,7 @@ class Board : public virtual Sprite {
 
         virtual void Create();
 
-        void ShowMoves(Vector2u loc);
+        void ShowMoves(const Vector2u& loc);
         void HideMoves();
         void UpdateDisplay();
 };
