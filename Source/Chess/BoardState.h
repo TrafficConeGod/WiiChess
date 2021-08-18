@@ -11,7 +11,8 @@ namespace Chess {
     class BoardState {
         public:
             Array<Vector2u> pieceLocs;
-            Vector2u kingLoc = Vector2u(-1, -1);
+            Vector2u kingLocs[2];
+            bool kingChecks[2];
             Space spaces[64];
 
             BoardState(const BoardState& state);

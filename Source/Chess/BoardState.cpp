@@ -1,15 +1,19 @@
 #include "BoardState.h"
+#include "pieces.h"
 using namespace Chess;
 
 BoardState::BoardState(Array<Space>& spacesToAdd) {
+    kingChecks[0] = false;
+    kingChecks[1] = false;
     for (size_t i = 0; i < 64; i++) {
         if (i < spacesToAdd.size) {
             spaces[i] = spacesToAdd[i];
-            if (spaces[i].type > 0) {
+            Space* space = &spaces[i];
+            if (space->type > 0) {
                 pieceLocs << GetLocation(i);
             }
-            if (spaces[i].type == Space::Type::King) {
-                kingLoc = GetLocation(i);
+            if (space->type == Space::Type::King) {
+                kingLocs[(uint)space->color] = GetLocation(i);
             }
         } else {
             spaces[i] = Space();
@@ -35,13 +39,33 @@ void BoardState::GetMoves(Array<Vector2u>* moves) {
     }
 }
 
-void BoardState::GetMovesAt(const Vector2u& loc, Array<Vector2u>& locMoves) {
-    locMoves << Vector2u(4, 4);
+void BoardState::GetMovesAt(const Vector2u& loc, Array<Vector2u>& moves) {
+    Space* space = GetSpace(loc);
+    if (space->type == Space::Type::None) {
+        return;
+    }
+    uint index = ((uint)space->type) - 1;
+    (getMovesFuncs[index])(this, loc, moves);
+
+    if (kingChecks[(uint)space->color]) {
+        ShowConsole();
+        Print("Check logic");
+    }
+
+    for (size_t i = 0; i < moves.size; i++) {
+        const Vector2u& moveLoc = moves[i];
+        uint kingIndex = !((bool)space->color);
+        if (moveLoc == kingLocs[kingIndex]) {
+            kingChecks[kingIndex] = true;
+        }
+    }
 }
 
 void BoardState::MovePiece(const Move& move) {
-    if (move.from == kingLoc) {
-        kingLoc = move.to;
+    Space* fromSpace = GetSpace(move.from);
+    Space* toSpace = GetSpace(move.to);
+    if (move.from == kingLocs[(uint)fromSpace->color]) {
+        kingLocs[(uint)fromSpace->color] = move.to;
     }
     for (size_t i = 0; i < pieceLocs.size; i++) {
         if (pieceLocs[i] == move.to) {
@@ -53,8 +77,6 @@ void BoardState::MovePiece(const Move& move) {
             pieceLocs[i] = move.to;
         }
     }
-    Space* fromSpace = GetSpace(move.from);
-    Space* toSpace = GetSpace(move.to);
     toSpace->type = fromSpace->type;
     toSpace->color = fromSpace->color;
     *fromSpace = Space();
