@@ -75,11 +75,12 @@ void Board::ShowMoves(const Vector2u& loc) {
     size_t index = engine.state->GetIndex(loc);
     Array<Vector2u>& moves = engine.currentMoves[index];
     for (size_t i = 0; i < moves.size; i++) {
+        Vector2u moveLoc = moves[i];
         MoveHint* hintBase = moveHintRef;
         if (hintBase != nullptr) {
             MoveHint* hint = CreateChildFrom(hintBase);
             hint->active = true;
-            hint->pos += (moves[i] * hint->size);
+            hint->pos += (moveLoc * hint->size);
             hint->Initialize();
         }
     }

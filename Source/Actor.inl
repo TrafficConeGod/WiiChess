@@ -4,7 +4,9 @@
 template<typename A>
 A* Actor::CreateChildFrom(A* actor) {
     A* clone = dynamic_cast<A*>(stage->AllocateActor(A::ID));
+    size_t index = clone->index;
     *clone = *actor;
+    clone->index = index;
     clone->Initialize();
     MakeChild(dynamic_cast<Actor*>(clone));
     return clone;
