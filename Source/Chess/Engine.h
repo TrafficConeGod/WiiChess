@@ -2,10 +2,6 @@
 #include "BoardState.h"
 
 namespace Chess {
-    struct Move {
-        Vector2u from;
-        Vector2u to;
-    };
     class Engine {
         public:
             BoardState* state;

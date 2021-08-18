@@ -38,3 +38,24 @@ void BoardState::GetMoves(Array<Vector2u>* moves) {
 void BoardState::GetMovesAt(const Vector2u& loc, Array<Vector2u>& locMoves) {
     locMoves << Vector2u(4, 4);
 }
+
+void BoardState::MovePiece(const Move& move) {
+    if (move.from == kingLoc) {
+        kingLoc = move.to;
+    }
+    for (size_t i = 0; i < pieceLocs.size; i++) {
+        if (pieceLocs[i] == move.to) {
+            pieceLocs[i] = Vector2u(-1, -1);
+        }
+    }
+    for (size_t i = 0; i < pieceLocs.size; i++) {
+        if (pieceLocs[i] == move.from) {
+            pieceLocs[i] = move.to;
+        }
+    }
+    Space* fromSpace = GetSpace(move.from);
+    Space* toSpace = GetSpace(move.to);
+    toSpace->type = fromSpace->type;
+    toSpace->color = fromSpace->color;
+    *fromSpace = Space();
+}
