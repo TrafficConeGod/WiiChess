@@ -57,10 +57,24 @@ struct RemovePieceActionState {
     size_t index;
 };
 
+void UpdateRemovedPieceIndex(RemovePieceActionState* state) {
+    for (size_t i = 0; i < state->board->removedPieceIndices.size; i++) {
+        size_t index = state->board->removedPieceIndices[i];
+        if (state->index == index) {
+            state->index++;
+            UpdateRemovedPieceIndex(state);
+            break;
+        }
+    }
+}
+
 void RemovePieceAction(Piece* piece, RemovePieceActionState* state) {
+    UpdateRemovedPieceIndex(state);
+
     Array<Vector2u>& pieceLocs = state->board->engine.state->pieceLocs;
     const Vector2u& loc = pieceLocs[state->index];
     if (loc == Vector2u(-1, -1)) {
+        state->board->removedPieceIndices << state->index;
         piece->Delete();
     }
     state->index++;

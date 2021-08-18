@@ -29,7 +29,7 @@ void Piece::Release() {
         } else {
             UpdateLocation(loc);
         }
-        // board->UpdateDisplay(); // no guarantees this piece will exist after calling this
+        board->UpdateDisplay(); // no guarantees this piece will exist after calling this
     }
 }
 

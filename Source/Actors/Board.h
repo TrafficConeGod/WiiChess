@@ -14,6 +14,7 @@ class Board : public virtual Sprite {
         static const short ID = 5;
 
         Chess::Engine engine;
+        Array<size_t> removedPieceIndices;
 
         ActorConstructor(Board)
         virtual bool IsOfType(short id);
