@@ -29,7 +29,7 @@ void Board::Create() {
 
     Array<Vector2u>& pieceLocs = engine.state->pieceLocs;
     for (size_t i = 0; i < pieceLocs.size; i++) {
-        Vector2u loc = pieceLocs[i];
+        const Vector2u& loc = pieceLocs[i];
         Chess::Space* space = engine.state->GetSpace(loc);
         size_t pieceTypeIndex = space->type;
         pieceTypeIndex--;
@@ -59,7 +59,7 @@ struct RemovePieceActionState {
 
 void RemovePieceAction(Piece* piece, RemovePieceActionState* state) {
     Array<Vector2u>& pieceLocs = state->board->engine.state->pieceLocs;
-    Vector2u loc = pieceLocs[state->index];
+    const Vector2u& loc = pieceLocs[state->index];
     if (loc == Vector2u(-1, -1)) {
         piece->Delete();
     }
@@ -75,7 +75,7 @@ void Board::ShowMoves(const Vector2u& loc) {
     size_t index = engine.state->GetIndex(loc);
     Array<Vector2u>& moves = engine.currentMoves[index];
     for (size_t i = 0; i < moves.size; i++) {
-        Vector2u moveLoc = moves[i];
+        const Vector2u& moveLoc = moves[i];
         MoveHint* hintBase = moveHintRef;
         if (hintBase != nullptr) {
             MoveHint* hint = CreateChildFrom(hintBase);

@@ -35,6 +35,6 @@ void BoardState::GetMoves(Array<Vector2u>* moves) {
     }
 }
 
-void BoardState::GetMovesAt(Vector2u loc, Array<Vector2u>& locMoves) {
+void BoardState::GetMovesAt(const Vector2u& loc, Array<Vector2u>& locMoves) {
     locMoves << Vector2u(4, 4);
 }

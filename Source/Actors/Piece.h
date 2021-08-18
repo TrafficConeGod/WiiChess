@@ -30,5 +30,5 @@ class Piece : public virtual Sprite, public virtual Inputtable {
         virtual void ButtonsDown(uint buttons);
         virtual void ButtonsUp(uint buttons);
 
-        void UpdateLocation(Vector2u loc);
+        void UpdateLocation(const Vector2u& loc);
 };

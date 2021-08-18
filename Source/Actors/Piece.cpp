@@ -54,7 +54,7 @@ void Piece::ButtonsUp(uint buttons) {
     }
 }
 
-void Piece::UpdateLocation(Vector2u loc) {
+void Piece::UpdateLocation(const Vector2u& loc) {
     this->loc = loc;
     pos = origPos + (loc * size);
 }
