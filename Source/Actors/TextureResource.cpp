@@ -14,11 +14,15 @@ void TextureResource::Load(DataStream& stream) {
 }
 
 void TextureResource::UseTexture() {
-    #ifdef GFX_MODE
-    if (currentTexture == this) {
-        return;
-    }
-    currentTexture = this;
-	GX_LoadTexObj(&texObj, GX_TEXMAP0);
+    #ifdef DEBUG_MODE
+	if (gfxVisible) {
+	#else
+	{
     #endif
+        if (currentTexture == this) {
+            return;
+        }
+        currentTexture = this;
+        GX_LoadTexObj(&texObj, GX_TEXMAP0);
+    }
 }

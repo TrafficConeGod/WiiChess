@@ -7,4 +7,4 @@ class MoveHint : public Sprite {
 
         ActorConstructor(MoveHint)
         virtual bool IsOfType(short id);
-};  
+};

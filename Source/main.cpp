@@ -9,13 +9,9 @@
 
 #define DEFAULT_FIFO_SIZE (256*1024)
 
-#ifdef GFX_MODE
 static void* frameBuffer[2] = { NULL, NULL};
-#endif
 static GXRModeObj* rMode;
-#ifdef DEBUG_MODE
 static void* xfb = NULL;
-#endif
 
 GXTexObj texObj;
 
@@ -76,11 +72,13 @@ void ListDir(const char* path) {
 }
 #endif
 
-int main(int argCount, char** args) {
+bool gfxVisible = true;
 
-	#ifdef DEBUG_MODE
+void ShowConsole() {
+	gfxVisible = false;
+    #ifdef DEBUG_MODE
 	// Initialise the video system
-	VIDEO_Init();
+    VIDEO_Init();
 
 	// This function initialises the attached controllers
 
@@ -116,13 +114,18 @@ int main(int argCount, char** args) {
 	// we can use variables for this with format codes too
 	// e.g. printf ("\x1b[%d;%dH", row, column );
 	PrintFmt("\x1b[2;0H");
-	#endif
+
+	Print("Debug console active");
+    #endif
+}
+
+int main(int argCount, char** args) {
 
 	if (!fatInitDefault()) {
 		Error("fatInitDefault() failed");
 	}
-	#ifdef GFX_MODE
 
+	// gfx init
 	u32	frameBuf; 	// initial framebuffer index
 	u32 firstFrame;
 	f32 yScale;
@@ -203,13 +206,11 @@ int main(int argCount, char** args) {
 
 	srand(time(NULL));
 
-	#endif
-
 	WPAD_Init();
 	WPAD_SetDataFormat(WPAD_CHAN_ALL, WPAD_FMT_BTNS_ACC_IR);
 	WPAD_SetVRes(WPAD_CHAN_ALL, 640, 480);
 
-	//
+	// gfx end
 
 	Stage stage;
 	if (!stage.LoadFromFile("Data/Stages/BoardStage.stg")) {
@@ -246,48 +247,53 @@ int main(int argCount, char** args) {
 		WPAD_IR(0, &pointer);
 		stage.UseActorsOfWith(&pointer, HandlePointerAction);
 
-		#ifdef GFX_MODE
-
-		GX_SetViewport(0, 0, rMode->fbWidth, rMode->efbHeight, 0, 1);
-		GX_InvVtxCache();
-		GX_InvalidateTexAll();
-
-		GX_ClearVtxDesc();
-		GX_SetVtxDesc(GX_VA_POS, GX_DIRECT);
-		GX_SetVtxDesc(GX_VA_TEX0, GX_DIRECT);
-
-		guMtxIdentity(GXmodelView2D);
-		guMtxTransApply(GXmodelView2D, GXmodelView2D, 0.0F, 0.0F, -5.0F);
-		GX_LoadPosMtxImm(GXmodelView2D, GX_PNMTX0);
-
+		#ifdef DEBUG_MODE
+		if (gfxVisible) {
+		#else
+		{
 		#endif
+			GX_SetViewport(0, 0, rMode->fbWidth, rMode->efbHeight, 0, 1);
+			GX_InvVtxCache();
+			GX_InvalidateTexAll();
+
+			GX_ClearVtxDesc();
+			GX_SetVtxDesc(GX_VA_POS, GX_DIRECT);
+			GX_SetVtxDesc(GX_VA_TEX0, GX_DIRECT);
+
+			guMtxIdentity(GXmodelView2D);
+			guMtxTransApply(GXmodelView2D, GXmodelView2D, 0.0F, 0.0F, -5.0F);
+			GX_LoadPosMtxImm(GXmodelView2D, GX_PNMTX0);
+		}
 
 		stage.UseActors(UpdateAction);
 		Sprite::Draw(&stage);
 
-		#ifdef GFX_MODE
-
-		GX_DrawDone();
-
-		GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
-		GX_SetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA, GX_LO_CLEAR);
-		GX_SetAlphaUpdate(GX_TRUE);
-		GX_SetColorUpdate(GX_TRUE);
-		GX_CopyDisp(frameBuffer[frameBuf], GX_TRUE);
-
-		VIDEO_SetNextFramebuffer(frameBuffer[frameBuf]);
-		if (firstFrame) {
-			VIDEO_SetBlack(FALSE);
-			firstFrame = 0;
-		}
-		VIDEO_Flush();
-		VIDEO_WaitVSync();
-		frameBuf ^= 1;		// flip framebuffer
-
-		#endif
-
 		#ifdef DEBUG_MODE
-		VIDEO_WaitVSync();
+		if (gfxVisible) {
+		#else
+		{
+		#endif
+			GX_DrawDone();
+
+			GX_SetZMode(GX_TRUE, GX_LEQUAL, GX_TRUE);
+			GX_SetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA, GX_LO_CLEAR);
+			GX_SetAlphaUpdate(GX_TRUE);
+			GX_SetColorUpdate(GX_TRUE);
+			GX_CopyDisp(frameBuffer[frameBuf], GX_TRUE);
+
+			VIDEO_SetNextFramebuffer(frameBuffer[frameBuf]);
+			if (firstFrame) {
+				VIDEO_SetBlack(FALSE);
+				firstFrame = 0;
+			}
+			VIDEO_Flush();
+			VIDEO_WaitVSync();
+			frameBuf ^= 1;		// flip framebuffer
+		}
+		#ifdef DEBUG_MODE
+		else {
+			VIDEO_WaitVSync();
+		}
 		#endif
 	}
 	return 0;

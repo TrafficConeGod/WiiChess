@@ -77,6 +77,7 @@ void Board::ShowMoves(Vector2u loc) {
     for (size_t i = 0; i < moves.size; i++) {
         MoveHint* hintBase = moveHintRef;
         if (hintBase != nullptr) {
+            ShowConsole();
             MoveHint* hint = CreateChildFrom(hintBase);
             hint->active = true;
             hint->pos += loc * hint->size;
