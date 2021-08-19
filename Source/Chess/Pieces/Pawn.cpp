@@ -13,5 +13,3 @@ void PawnGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves
     AddLocationIfEnemy(state, space->color, loc + Vector2i(1, moveDirY), moves);
     AddLocationIfEnemy(state, space->color, loc + Vector2i(-1, moveDirY), moves);
 }
-
-void KnightGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
