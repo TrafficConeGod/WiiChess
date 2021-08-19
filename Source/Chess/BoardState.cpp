@@ -2,6 +2,21 @@
 #include "pieces.h"
 using namespace Chess;
 
+void BoardState::operator=(const BoardState& state) {
+    pieceLocs = state.pieceLocs;
+    for (size_t i = 0; i < 2; i++) {
+        kingLocs[i] = state.kingLocs[i];
+        kingChecks[i] = state.kingChecks[i];
+    }
+    for (size_t i = 0; i < 64; i++) {
+        spaces[i] = state.spaces[i];
+    }
+}
+
+BoardState::BoardState(const BoardState& state) {
+    *this = state;
+}
+
 BoardState::BoardState(Array<Space>& spacesToAdd) {
     kingChecks[0] = false;
     kingChecks[1] = false;
@@ -33,30 +48,58 @@ Vector2u BoardState::GetLocation(size_t index) {
     return Vector2u(index % 8, index / 8);
 }
 
-void BoardState::GetMoves(Array<Vector2u>* moves) {
+void BoardState::GetBasicMoves(Array<Vector2u>* allMoves) {
+    bool currentKingChecks[2] = { false, false };
+
     for (size_t i = 0; i < 64; i++) {
-        GetMovesAt(GetLocation(i), moves[i]);
+        Array<Vector2u>& moves = allMoves[i];
+        Vector2u loc = GetLocation(i);
+        Space* space = GetSpace(loc);
+        if (space->type == Space::Type::None) {
+            continue;
+        }
+        uint index = ((uint)space->type) - 1;
+        (getMovesFuncs[index])(this, loc, moves);
+
+        for (size_t i = 0; i < moves.size; i++) {
+            const Vector2u& moveLoc = moves[i];
+            uint kingIndex = !((bool)space->color);
+            if (moveLoc == kingLocs[kingIndex]) {
+                currentKingChecks[kingIndex] = true;
+            }
+        }
     }
+    kingChecks[0] = currentKingChecks[0];
+    kingChecks[1] = currentKingChecks[1];
 }
 
-void BoardState::GetMovesAt(const Vector2u& loc, Array<Vector2u>& moves) {
-    Space* space = GetSpace(loc);
-    if (space->type == Space::Type::None) {
-        return;
-    }
-    uint index = ((uint)space->type) - 1;
-    (getMovesFuncs[index])(this, loc, moves);
+void BoardState::GetMoves(Array<Vector2u>* allMoves) {
+    GetBasicMoves(allMoves);
 
-    if (kingChecks[(uint)space->color]) {
-        ShowConsole();
-        Print("Check logic");
-    }
+    for (size_t i = 0; i < 64; i++) {
+        Array<Vector2u>& moves = allMoves[i];
+        Vector2u loc = GetLocation(i);
+        Space* space = GetSpace(loc);
+        if (space->type == Space::Type::None) {
+            continue;
+        }
+        uint index = (uint)space->color;
 
-    for (size_t i = 0; i < moves.size; i++) {
-        const Vector2u& moveLoc = moves[i];
-        uint kingIndex = !((bool)space->color);
-        if (moveLoc == kingLocs[kingIndex]) {
-            kingChecks[kingIndex] = true;
+        if (kingChecks[index]) {
+            Array<Vector2u> newMoves;
+
+            for (size_t i = 0; i < moves.size; i++) {
+                BoardState state = *this;
+                const Vector2u& toLoc = moves[i];
+                state.MovePiece({ loc, toLoc });
+                Array<Vector2u> allStateMoves[64];
+                state.GetBasicMoves(allStateMoves);
+                
+                if (!state.kingChecks[index]) {
+                    newMoves << toLoc;
+                }
+            }
+            allMoves[i] = newMoves;
         }
     }
 }

@@ -40,6 +40,7 @@ template<typename T>
 T& Array<T>::operator[](size_t index) {
     #ifdef DEBUG_MODE
     if (index >= size) {
+        ShowConsole();
         PrintFmt("Attempt to index %d out of size of %d\n", index, size);
         Error("Out of array bounds");
         exit(0);

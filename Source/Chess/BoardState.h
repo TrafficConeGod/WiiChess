@@ -9,12 +9,16 @@ namespace Chess {
         Vector2u to;
     };
     class BoardState {
-        public:
-            Array<Vector2u> pieceLocs;
+        private:
             Vector2u kingLocs[2];
             bool kingChecks[2];
+            
+            void GetBasicMoves(Array<Vector2u>* ret);
+        public:
+            Array<Vector2u> pieceLocs;
             Space spaces[64];
 
+            void operator=(const BoardState& state);
             BoardState(const BoardState& state);
             BoardState(Array<Space>& spaces);
 
@@ -22,7 +26,6 @@ namespace Chess {
             size_t GetIndex(const Vector2u& loc);
             Vector2u GetLocation(size_t index);
             void GetMoves(Array<Vector2u>* ret);
-            void GetMovesAt(const Vector2u& loc, Array<Vector2u>& ret);
             void MovePiece(const Move& move);
     };
 }
