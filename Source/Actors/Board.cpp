@@ -42,6 +42,7 @@ void Board::Create() {
         if (pieceBase != nullptr) {
             Piece* piece = CreateChildFrom(pieceBase);
             piece->active = true;
+            piece->color = space->color;
             piece->boardRef = this;
             piece->Initialize();
             piece->UpdateLocation(loc);
@@ -124,5 +125,7 @@ bool Board::MovePiece(const Vector2u& from, const Vector2u& to) {
     }
 
     engine.MoveFromTo({ from, to });
+
+    turnColor = (Chess::Space::Color)(!((bool)turnColor));
     return true;
 }

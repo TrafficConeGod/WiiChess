@@ -13,6 +13,7 @@ class Board : public virtual Sprite {
     public:
         static const short ID = 5;
 
+        Chess::Space::Color turnColor = Chess::Space::Color::White;
         Chess::Engine engine;
         Array<size_t> removedPieceIndices;
 

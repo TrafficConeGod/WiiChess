@@ -13,12 +13,8 @@ class Piece : public virtual Sprite, public virtual Inputtable {
     public:
         static const short ID = 6;
 
-        enum Color {
-            BLACK,
-            WHITE
-        };
-
         ActorReference<Board> boardRef;
+        Chess::Space::Color color;
         Vector2u loc;
 
         ActorConstructor(Piece)

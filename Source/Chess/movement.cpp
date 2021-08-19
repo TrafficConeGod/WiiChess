@@ -1,33 +1,39 @@
 #include "movement.h"
 
-void AddLocationIfEmpty(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves) {
+bool AddLocationIfEmpty(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves) {
     if (loc.x >= 8 || loc.y >= 8) {
-        return;
+        return false;
     }
     Space* space = state->GetSpace(loc);
     if (space->type == Space::Type::None) {
         moves << loc;
+        return true;
     }
+    return false;
 }
 
-void AddLocationIfEnemy(BoardState* state, Space::Color color, const Vector2u& loc, Array<Vector2u>& moves) {
+bool AddLocationIfEnemy(BoardState* state, Space::Color color, const Vector2u& loc, Array<Vector2u>& moves) {
     if (loc.x >= 8 || loc.y >= 8) {
-        return;
+        return false;
     }
     Space* space = state->GetSpace(loc);
     if (space->type != Space::Type::None && space->color == (!(bool)color)) {
         moves << loc;
+        return true;
     }
+    return false;
 }
 
-void AddLocationIfEmptyOrEnemy(BoardState* state, Space::Color color, const Vector2u& loc, Array<Vector2u>& moves) {
+bool AddLocationIfEmptyOrEnemy(BoardState* state, Space::Color color, const Vector2u& loc, Array<Vector2u>& moves) {
     if (loc.x >= 8 || loc.y >= 8) {
-        return;
+        return false;
     }
     Space* space = state->GetSpace(loc);
     if (space->type == Space::Type::None || space->color == (!(bool)color)) {
         moves << loc;
+        return true;
     }
+    return false;
 }
 
 void AddDirectionalLocations(BoardState* state, Vector2u unsLoc, const Vector2i& dir, Array<Vector2u>& moves) {
