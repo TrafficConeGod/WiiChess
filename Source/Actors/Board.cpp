@@ -48,7 +48,6 @@ void Board::Create() {
         }
     }
 
-    engine.state->pieceLocs[2] = Vector2u(-1, -1);
     UpdateDisplay();
 }
 

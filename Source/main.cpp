@@ -72,11 +72,12 @@ void ListDir(const char* path) {
 }
 #endif
 
+bool allowShowingConsole = true;
 bool gfxVisible = true;
 
 void ShowConsole() {
     #ifdef DEBUG_MODE
-	if (!gfxVisible) {
+	if (!gfxVisible || !allowShowingConsole) {
 		return;
 	}
 	gfxVisible = false;
@@ -234,7 +235,7 @@ int main(int argCount, char** args) {
 
 		#ifdef DEBUG_MODE
 		if (buttonsDown & WPAD_BUTTON_PLUS) {
-			ShowConsole();
+			allowShowingConsole = !allowShowingConsole;
 		}
 		#endif
 

@@ -49,8 +49,6 @@ Vector2u BoardState::GetLocation(size_t index) {
 }
 
 void BoardState::GetBasicMoves(Array<Vector2u>* allMoves) {
-    bool currentKingChecks[2] = { false, false };
-
     for (size_t i = 0; i < 64; i++) {
         Array<Vector2u>& moves = allMoves[i];
         Vector2u loc = GetLocation(i);
@@ -65,12 +63,10 @@ void BoardState::GetBasicMoves(Array<Vector2u>* allMoves) {
             const Vector2u& moveLoc = moves[j];
             uint kingIndex = !((bool)space->color);
             if (moveLoc == kingLocs[kingIndex]) {
-                currentKingChecks[kingIndex] = true;
+                kingChecks[kingIndex] = true;
             }
         }
     }
-    kingChecks[0] = currentKingChecks[0];
-    kingChecks[1] = currentKingChecks[1];
 }
 
 void BoardState::GetMoves(Array<Vector2u>* allMoves) {
@@ -116,10 +112,11 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
             Array<Vector2u> allStateMoves[64];
             state.GetBasicMoves(allStateMoves);
             
-            if (!state.kingChecks[index]) {
+            if (!state.kingChecks[i]) {
                 newMoves << toLoc;
             }
         }
+        allMoves[index] = newMoves;
     }
 
     for (size_t i = 0; i < 64; i++) {
