@@ -15,6 +15,3 @@ void PawnGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves
 }
 
 void KnightGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
-void BishopGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
-void KingGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
-void QueenGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
