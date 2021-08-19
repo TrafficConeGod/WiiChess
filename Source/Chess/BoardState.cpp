@@ -157,4 +157,6 @@ void BoardState::MovePiece(const Move& move) {
     toSpace->type = fromSpace->type;
     toSpace->color = fromSpace->color;
     *fromSpace = Space();
+    kingChecks[0] = false;
+    kingChecks[1] = false;
 }
