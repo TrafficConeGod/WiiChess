@@ -103,6 +103,25 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
         }
     }
 
+    for (size_t i = 0; i < 2; i++) {
+        const Vector2u& loc = kingLocs[i];
+        uint index = GetIndex(loc);
+        Array<Vector2u>& moves = allMoves[index];
+
+        Array<Vector2u> newMoves;
+        for (size_t j = 0; j < moves.size; j++) {
+            BoardState state = *this;
+            const Vector2u& toLoc = moves[j];
+            state.MovePiece({ loc, toLoc });
+            Array<Vector2u> allStateMoves[64];
+            state.GetBasicMoves(allStateMoves);
+            
+            if (!state.kingChecks[index]) {
+                newMoves << toLoc;
+            }
+        }
+    }
+
     for (size_t i = 0; i < 64; i++) {
         Array<Vector2u>& moves = allMoves[i];
         Vector2u loc = GetLocation(i);
