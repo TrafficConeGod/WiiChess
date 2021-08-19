@@ -61,8 +61,8 @@ void BoardState::GetBasicMoves(Array<Vector2u>* allMoves) {
         uint index = ((uint)space->type) - 1;
         (getMovesFuncs[index])(this, loc, moves);
 
-        for (size_t i = 0; i < moves.size; i++) {
-            const Vector2u& moveLoc = moves[i];
+        for (size_t j = 0; j < moves.size; j++) {
+            const Vector2u& moveLoc = moves[j];
             uint kingIndex = !((bool)space->color);
             if (moveLoc == kingLocs[kingIndex]) {
                 currentKingChecks[kingIndex] = true;
@@ -88,9 +88,9 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
         if (kingChecks[index]) {
             Array<Vector2u> newMoves;
 
-            for (size_t i = 0; i < moves.size; i++) {
+            for (size_t j = 0; j < moves.size; j++) {
                 BoardState state = *this;
-                const Vector2u& toLoc = moves[i];
+                const Vector2u& toLoc = moves[j];
                 state.MovePiece({ loc, toLoc });
                 Array<Vector2u> allStateMoves[64];
                 state.GetBasicMoves(allStateMoves);
@@ -101,6 +101,24 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
             }
             allMoves[i] = newMoves;
         }
+    }
+
+    for (size_t i = 0; i < 64; i++) {
+        Array<Vector2u>& moves = allMoves[i];
+        Vector2u loc = GetLocation(i);
+        Space* space = GetSpace(loc);
+        if (space->type == Space::Type::None) {
+            continue;
+        }
+
+        Array<Vector2u> newMoves;
+        for (size_t j = 0; j < moves.size; j++) {
+            Space* toSpace = GetSpace(moves[j]);
+            if (toSpace->type != Space::Type::King) {
+                newMoves << moves[j];
+            }
+        }
+        allMoves[i] = newMoves;
     }
 }
 
