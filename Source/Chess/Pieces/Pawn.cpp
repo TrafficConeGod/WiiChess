@@ -1,5 +1,5 @@
-#include "pieces.h"
-#include "movement.h"
+#include "../pieces.h"
+#include "../movement.h"
 
 void PawnGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves) {
     Space* space = state->GetSpace(loc);
@@ -14,7 +14,6 @@ void PawnGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& moves
     AddLocationIfEnemy(state, space->color, loc + Vector2i(-1, moveDirY), moves);
 }
 
-void RookGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
 void KnightGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
 void BishopGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
 void KingGetMoves(BoardState* state, const Vector2u& loc, Array<Vector2u>& ret) {}
