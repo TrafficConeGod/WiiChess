@@ -145,6 +145,24 @@ void BoardState::MovePiece(const Move& move, Array<Move>& auxMoves) {
     Space* toSpace = GetSpace(move.to);
     fromSpace->modified = true;
     toSpace->modified = true;
+
+    // handle aux moves
+
+    // castle
+    uint backRowY = fromSpace->color == Space::Color::Black ? 0 : 7;
+    if (fromSpace->type == Space::Type::King && move.from == Vector2u(4, backRowY)) {
+        if (move.to == Vector2u(2, backRowY)) {
+            auxMoves << Move{ Vector2u(0, backRowY), Vector2u(3, backRowY) };
+        } else if (move.to == Vector2u(6, backRowY)) {
+            auxMoves << Move{ Vector2u(7, backRowY), Vector2u(5, backRowY) };
+        }
+    }
+    //
+    Array<Move> auxMovesBlank;
+    for (size_t i = 0; i < auxMoves.size; i++) {
+        MovePiece(auxMoves[i], auxMovesBlank);
+    }
+
     if (move.from == kingLocs[(uint)fromSpace->color]) {
         kingLocs[(uint)fromSpace->color] = move.to;
     }
@@ -164,6 +182,4 @@ void BoardState::MovePiece(const Move& move, Array<Move>& auxMoves) {
     *fromSpace = Space();
     kingChecks[0] = false;
     kingChecks[1] = false;
-
-    
 }
