@@ -26,6 +26,6 @@ namespace Chess {
             size_t GetIndex(const Vector2u& loc);
             Vector2u GetLocation(size_t index);
             void GetMoves(Array<Vector2u>* ret);
-            void MovePiece(const Move& move);
+            void MovePiece(const Move& move, Array<Move>& ret);
     };
 }

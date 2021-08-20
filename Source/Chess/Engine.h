@@ -10,7 +10,7 @@ namespace Chess {
             ~Engine();            
 
             void Initialize(Array<Space>& spaces);
-            void MoveFromTo(const Move& move);
+            void MoveFromTo(const Move& move, Array<Move>& ret);
             Move GetBestMoveFor(Space::Color color);
     };
 }

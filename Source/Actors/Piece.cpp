@@ -13,10 +13,10 @@ void Piece::Create() {
 void Piece::Hold() {
     Board* board = boardRef;
     if (board != nullptr) {
-        if (board->turnColor == color) {
+        // if (board->turnColor == color) {
             held = true;
             board->ShowMoves(loc);
-        }
+        // }
     }
 }
 

@@ -108,6 +108,17 @@ void Board::HideMoves() {
     UseChildrenOf(RemoveHintAction);
 }
 
+void UpdatePieceLocationAction(Piece* piece, Array<Chess::Move>* movesPtr) {
+    Array<Chess::Move>& moves = *movesPtr;
+
+    for (size_t i = 0; i < moves.size; i++) {
+        const Chess::Move& move = moves[i];
+        if (move.from == piece->loc) {
+            piece->UpdateLocation(move.to);
+        }
+    }
+}
+
 bool Board::MovePiece(const Vector2u& from, const Vector2u& to) {
     size_t index = engine.state->GetIndex(from);
     Array<Vector2u>& moves = engine.currentMoves[index];
@@ -124,7 +135,12 @@ bool Board::MovePiece(const Vector2u& from, const Vector2u& to) {
         return false;
     }
 
-    engine.MoveFromTo({ from, to });
+    Array<Chess::Move> auxMoves;
+    engine.MoveFromTo({ from, to }, auxMoves);
+
+    if (auxMoves.size > 0) {
+        UseChildrenOfWith(&auxMoves, UpdatePieceLocationAction);
+    }
 
     turnColor = (Chess::Space::Color)(!((bool)turnColor));
     return true;

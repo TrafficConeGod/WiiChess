@@ -14,8 +14,8 @@ void Engine::Initialize(Array<Space>& spaces) {
     state->GetMoves(currentMoves);
 }
 
-void Engine::MoveFromTo(const Move& move) {
-    state->MovePiece(move);
+void Engine::MoveFromTo(const Move& move, Array<Move>& auxMoves) {
+    state->MovePiece(move, auxMoves);
 
     for (size_t i = 0; i < 64; i++) {
         currentMoves[i] = Array<Vector2u>();
