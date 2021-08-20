@@ -17,6 +17,7 @@ namespace Chess {
         };
         Type type = None;
         Color color;
+        bool modified = false;
 
         Space();
         void operator=(const Space& space);

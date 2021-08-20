@@ -143,6 +143,8 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
 void BoardState::MovePiece(const Move& move, Array<Move>& auxMoves) {
     Space* fromSpace = GetSpace(move.from);
     Space* toSpace = GetSpace(move.to);
+    fromSpace->modified = true;
+    toSpace->modified = true;
     if (move.from == kingLocs[(uint)fromSpace->color]) {
         kingLocs[(uint)fromSpace->color] = move.to;
     }
