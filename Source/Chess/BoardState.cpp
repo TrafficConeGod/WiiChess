@@ -100,26 +100,26 @@ void BoardState::GetMoves(Array<Vector2u>* allMoves) {
         }
     }
 
-    for (size_t i = 0; i < 2; i++) {
-        const Vector2u& loc = kingLocs[i];
-        uint index = GetIndex(loc);
-        Array<Vector2u>& moves = allMoves[index];
+    // for (size_t i = 0; i < 2; i++) {
+    //     const Vector2u& loc = kingLocs[i];
+    //     uint index = GetIndex(loc);
+    //     Array<Vector2u>& moves = allMoves[index];
 
-        Array<Vector2u> newMoves;
-        for (size_t j = 0; j < moves.size; j++) {
-            BoardState state = *this;
-            const Vector2u& toLoc = moves[j];
-            Array<Move> auxMoves;
-            state.MovePiece({ loc, toLoc }, auxMoves);
-            Array<Vector2u> allStateMoves[64];
-            state.GetBasicMoves(allStateMoves);
+    //     Array<Vector2u> newMoves;
+    //     for (size_t j = 0; j < moves.size; j++) {
+    //         BoardState state = *this;
+    //         const Vector2u& toLoc = moves[j];
+    //         Array<Move> auxMoves;
+    //         state.MovePiece({ loc, toLoc }, auxMoves);
+    //         Array<Vector2u> allStateMoves[64];
+    //         state.GetBasicMoves(allStateMoves);
             
-            if (!state.kingChecks[i]) {
-                newMoves << toLoc;
-            }
-        }
-        allMoves[index] = newMoves;
-    }
+    //         if (!state.kingChecks[i]) {
+    //             newMoves << toLoc;
+    //         }
+    //     }
+    //     allMoves[index] = newMoves;
+    // }
 
     for (size_t i = 0; i < 64; i++) {
         Array<Vector2u>& moves = allMoves[i];
